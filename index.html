@@ -328,26 +328,6 @@
       outline-offset: 2px;
     }
 
-    .event-banner {
-      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-      color: white;
-      border-radius: 18px;
-      padding: 15px 16px;
-      margin: 0 0 14px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .event-banner strong {
-      display: block;
-      font-size: clamp(1.15rem, 4vw, 1.45rem);
-      line-height: 1.2;
-      margin-bottom: 4px;
-    }
-
-    .event-banner span {
-      opacity: .94;
-    }
-
     .info-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -614,15 +594,7 @@
       </p>
     </section>
 
-    <section class="card" aria-labelledby="info-title">
-      <h3 class="section-step" id="info-title">Wichtige Informationen</h3>
-      <div class="event-banner">
-        <strong id="eventBannerTitle">Aufbruch-Workshop</strong>
-        <span id="eventBannerText">13. August 2026 · 10:30 bis 16:30 Uhr · Bodenstedt-Wilhelmschule Peine</span>
-      </div>
-      <div class="info-grid" aria-label="Wichtige Informationen">
-        <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
-        <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
+    <section class="card" aria-label="Wichtige Informationen">      <div class="info-grid" aria-label="Wichtige Informationen">        <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
         <div class="info-item"><strong>Termin</strong><span id="infoEventDate">13. August 2026</span></div>
         <div class="info-item"><strong>Uhrzeit</strong><span id="infoTime">10:30 bis 16:30 Uhr</span></div>
         <div class="info-item"><strong>Ort</strong><span id="infoPlace">Bodenstedt-Wilhelmschule Peine</span></div>
@@ -1099,16 +1071,11 @@
 
     const keys = {
       pageTitle: document.getElementById("page-title"),
-      intro: document.getElementById("intro"),
-      infoDate: document.getElementById("infoDate"),
-      infoTopic: document.getElementById("infoTopic"),
+      intro: document.getElementById("intro"),      infoTopic: document.getElementById("infoTopic"),
       infoEventDate: document.getElementById("infoEventDate"),
       infoTime: document.getElementById("infoTime"),
       infoPlace: document.getElementById("infoPlace"),
-      infoGoal: document.getElementById("infoGoal"),
-      eventBannerTitle: document.getElementById("eventBannerTitle"),
-      eventBannerText: document.getElementById("eventBannerText"),
-      letterDate: document.getElementById("letterDate"),
+      infoGoal: document.getElementById("infoGoal"),      letterDate: document.getElementById("letterDate"),
       subject: document.getElementById("letter-subject"),
       salutation: document.getElementById("salutation"),
       letterText: document.getElementById("letterText"),
@@ -1143,16 +1110,11 @@
       document.title = t.pageTitle + " | Bodenstedt-Wilhelmschule";
 
       keys.pageTitle.textContent = t.pageTitle;
-      keys.intro.textContent = t.intro;
-      keys.infoDate.textContent = t.date;
-      keys.infoTopic.textContent = t.topic;
+      keys.intro.textContent = t.intro;      keys.infoTopic.textContent = t.topic;
       keys.infoEventDate.textContent = t.eventDate;
       keys.infoTime.textContent = t.time;
       keys.infoPlace.textContent = t.place;
-      keys.infoGoal.textContent = t.goal;
-      keys.eventBannerTitle.textContent = t.topic || "Aufbruch-Workshop";
-      keys.eventBannerText.textContent = t.eventDate + " · " + t.time + " · " + t.place;
-      keys.letterDate.textContent = "Peine, " + t.date;
+      keys.infoGoal.textContent = t.goal;      keys.letterDate.textContent = "Peine, " + t.date;
       keys.subject.textContent = t.subject;
       keys.salutation.textContent = t.salutation;
       keys.closing.textContent = t.closing;
@@ -1165,9 +1127,7 @@
       }
       document.querySelector(".action-button").textContent = ui.print;
       document.getElementById("readButton").textContent = ui.read;
-      document.getElementById("changeLanguageButton").textContent = ui.change;
-      document.getElementById("info-title").textContent = ui.info;
-      document.getElementById("languageSearch").placeholder = ui.search;
+      document.getElementById("changeLanguageButton").textContent = ui.change;      document.getElementById("languageSearch").placeholder = ui.search;
       const toggle = document.getElementById("toggleLanguages");
       const moreBox = document.getElementById("moreLanguages");
       if (toggle && moreBox) {
