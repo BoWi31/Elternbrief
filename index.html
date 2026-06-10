@@ -70,18 +70,16 @@
       gap: 14px;
     }
 
-    .logo-placeholder {
-      width: 70px;
-      height: 70px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.13);
-      border: 2px solid rgba(255,255,255,0.65);
-      display: grid;
-      place-items: center;
-      font-weight: 900;
-      letter-spacing: .04em;
-      line-height: 1;
+    .school-logo {
+      width: 78px;
+      height: 78px;
+      border-radius: 16px;
+      background: white;
+      border: 2px solid rgba(255,255,255,0.85);
+      object-fit: contain;
+      padding: 6px;
       flex: 0 0 auto;
+      box-shadow: 0 4px 14px rgba(0,0,0,.14);
     }
 
     .school-name {
@@ -325,11 +323,11 @@
         padding: 16px 12px;
       }
 
-      .logo-placeholder {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
-        font-size: .86rem;
+      .school-logo {
+        width: 58px;
+        height: 58px;
+        border-radius: 13px;
+        padding: 4px;
       }
 
       main {
@@ -420,7 +418,7 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <div class="logo-placeholder" aria-label="BoWi-Logo-Platzhalter">BoWi</div>
+      <img class="school-logo" src="logo.png" alt="Logo der Bodenstedt-Wilhelmschule">
       <div>
         <h1 class="school-name">Bodenstedt-Wilhelmschule Peine</h1>
         <p class="school-subtitle">Mehrsprachige Elterninformation</p>
