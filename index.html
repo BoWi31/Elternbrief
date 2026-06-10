@@ -219,6 +219,12 @@
       margin-top: 12px;
     }
 
+    .speech-hint {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
     .action-button {
       background: var(--green);
       border-color: var(--green);
@@ -440,6 +446,7 @@
           <button class="action-button" type="button" onclick="window.print()">Drucken</button>
           <button class="action-button secondary" type="button" id="readButton">Vorlesen / Stop</button>
         </div>
+        <p class="speech-hint" id="speechHint" aria-live="polite"></p>
       </div>
 
       <div class="info-grid" aria-label="Wichtige Informationen">
@@ -976,20 +983,88 @@
       });
     });
 
+    let availableVoices = [];
+
+    function loadVoices() {
+      if (!("speechSynthesis" in window)) return;
+      availableVoices = window.speechSynthesis.getVoices();
+    }
+
+    if ("speechSynthesis" in window) {
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    const speechLanguageMap = {
+      de: ["de-DE", "de"],
+      en: ["en-US", "en-GB", "en"],
+      tr: ["tr-TR", "tr"],
+      ar: ["ar-SA", "ar"],
+      uk: ["uk-UA", "uk"],
+      ru: ["ru-RU", "ru"],
+      fr: ["fr-FR", "fr"],
+      pl: ["pl-PL", "pl"],
+      ro: ["ro-RO", "ro"],
+      bg: ["bg-BG", "bg"],
+      fa: ["fa-IR", "fa"],
+      prs: ["fa-IR", "fa"],
+      ku: ["ku", "tr-TR", "tr"],
+      sq: ["sq-AL", "sq"],
+      bs: ["bs-BA", "bs", "hr-HR", "sr-RS"],
+      mk: ["mk-MK", "mk"],
+      sr: ["sr-RS", "sr"],
+      rom: ["ro-RO", "ro", "sr-RS"]
+    };
+
+    function findBestVoice(languageCode) {
+      loadVoices();
+      const preferred = speechLanguageMap[languageCode] || [languageCode];
+
+      for (const lang of preferred) {
+        const exact = availableVoices.find(voice => voice.lang && voice.lang.toLowerCase() === lang.toLowerCase());
+        if (exact) return exact;
+      }
+
+      for (const lang of preferred) {
+        const prefix = lang.split("-")[0].toLowerCase();
+        const close = availableVoices.find(voice => voice.lang && voice.lang.toLowerCase().startsWith(prefix));
+        if (close) return close;
+      }
+
+      return null;
+    }
+
     document.getElementById("readButton").addEventListener("click", () => {
+      const speechHint = document.getElementById("speechHint");
+
       if (!("speechSynthesis" in window)) {
-        alert("Die Vorlesefunktion wird von diesem Browser nicht unterstützt.");
+        speechHint.textContent = "Die Vorlesefunktion wird von diesem Browser nicht unterstützt.";
         return;
       }
 
       if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
+        speechHint.textContent = "";
         return;
       }
 
+      const selectedLanguage = localStorage.getItem("preferredLanguage") || "de";
       const text = document.getElementById("letter").innerText;
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = document.documentElement.lang;
+      const voice = findBestVoice(selectedLanguage);
+      const preferredLang = (speechLanguageMap[selectedLanguage] || [document.documentElement.lang])[0];
+
+      utterance.lang = preferredLang;
+
+      if (voice) {
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+        speechHint.textContent = "";
+      } else {
+        speechHint.textContent = "Für diese Sprache ist auf diesem Gerät/Browser keine passende Vorlesestimme installiert. Der Text wird ggf. mit einer Standardsprache vorgelesen.";
+      }
+
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
     });
 
