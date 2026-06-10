@@ -19,6 +19,8 @@
       --blue-soft: #EAF1F8;
       --green-soft: #EEF7F0;
       --focus: #F6C445;
+      --shadow: 0 14px 34px rgba(23,58,94,.11);
+      --shadow-soft: 0 8px 22px rgba(23,58,94,.08);
     }
 
     * { box-sizing: border-box; }
@@ -29,7 +31,8 @@
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(54,128,67,0.10), transparent 32rem),
+        radial-gradient(circle at 15% 0%, rgba(54,128,67,0.13), transparent 28rem),
+        radial-gradient(circle at 85% 4%, rgba(36,81,139,0.10), transparent 30rem),
         linear-gradient(180deg, #FFFFFF 0%, var(--background) 18rem);
       color: var(--text);
       line-height: 1.58;
@@ -54,6 +57,19 @@
       background: linear-gradient(135deg, var(--blue-dark), var(--green-dark));
       color: white;
       border-bottom: 6px solid var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header::after {
+      content: "";
+      position: absolute;
+      inset: auto -8rem -7rem auto;
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      pointer-events: none;
     }
 
     .header-inner,
@@ -69,6 +85,8 @@
       align-items: center;
       gap: 18px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .school-logo {
@@ -105,12 +123,31 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: clamp(16px, 3vw, 28px);
-      box-shadow: 0 10px 28px rgba(23,58,94,.08);
+      box-shadow: var(--shadow-soft);
       margin-bottom: 14px;
     }
 
     .hero {
       border-top: 6px solid var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -3.2rem;
+      top: -3.2rem;
+      width: 9rem;
+      height: 9rem;
+      border-radius: 999px;
+      background: rgba(54,128,67,.08);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
     }
 
     h2, h3 {
@@ -173,6 +210,28 @@
       gap: 7px;
     }
 
+    .more-languages {
+      display: none;
+      margin-top: 7px;
+    }
+
+    .more-languages.is-open {
+      display: grid;
+    }
+
+    .toggle-button {
+      width: 100%;
+      border: 2px dashed #B7D9BE;
+      background: rgba(255,255,255,.75);
+      color: var(--green-dark);
+      border-radius: 12px;
+      min-height: 42px;
+      font-size: .95rem;
+      font-weight: 900;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
     .language-button,
     .action-button {
       appearance: none;
@@ -226,10 +285,24 @@
       background: white;
       border: 1px solid #CBE7CF;
       border-radius: 999px;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       padding: 5px 9px;
       font-weight: 800;
       color: var(--green-dark);
+    }
+
+    .selected-language::before {
+      content: "✓";
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      display: inline-grid;
+      place-items: center;
+      font-size: .78rem;
     }
 
     .section-step {
@@ -253,6 +326,26 @@
     input:focus-visible {
       outline: 3px solid var(--focus);
       outline-offset: 2px;
+    }
+
+    .event-banner {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+      color: white;
+      border-radius: 18px;
+      padding: 15px 16px;
+      margin: 0 0 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .event-banner strong {
+      display: block;
+      font-size: clamp(1.15rem, 4vw, 1.45rem);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .event-banner span {
+      opacity: .94;
     }
 
     .info-grid {
@@ -281,6 +374,11 @@
 
     .letter {
       font-size: clamp(1.04rem, 2.8vw, 1.16rem);
+      border-top: 6px solid var(--blue);
+    }
+
+    #letterText p {
+      margin: 0 0 1em;
     }
 
     .letter-meta {
@@ -304,9 +402,29 @@
     }
 
     .site-footer {
-      padding: 0 14px 26px;
+      padding: 0 14px 72px;
       color: var(--muted);
       font-size: .92rem;
+    }
+
+    .change-language-fab {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 20;
+      border: 0;
+      border-radius: 999px;
+      background: var(--blue-dark);
+      color: white;
+      box-shadow: var(--shadow);
+      padding: 12px 16px;
+      font-weight: 900;
+      cursor: pointer;
+      display: none;
+    }
+
+    .change-language-fab.is-visible {
+      display: inline-flex;
     }
 
     [dir="rtl"] {
@@ -366,6 +484,12 @@
       .button-row,
       .info-grid {
         grid-template-columns: 1fr;
+      }
+
+      .change-language-fab {
+        left: 10px;
+        right: 10px;
+        justify-content: center;
       }
 
       .info-item {
@@ -439,7 +563,7 @@
       <div class="language-panel" aria-labelledby="language-title">
         <span class="language-panel-title" id="language-title">Sprache auswählen</span>
         <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen …" aria-label="Sprache suchen">
-        <div class="language-grid" id="languageGrid" role="group" aria-label="Sprache auswählen">
+        <div class="language-grid priority-languages" id="languageGrid" role="group" aria-label="Sprache auswählen">
           <button class="language-button" type="button" data-lang="de" aria-pressed="true">Deutsch<small>Original</small></button>
           <button class="language-button" type="button" data-lang="ar" aria-pressed="false">العربية<small>Arabisch</small></button>
           <button class="language-button" type="button" data-lang="tr" aria-pressed="false">Türkçe<small>Türkisch</small></button>
@@ -447,9 +571,12 @@
           <button class="language-button" type="button" data-lang="en" aria-pressed="false">English<small>Englisch</small></button>
           <button class="language-button" type="button" data-lang="uk" aria-pressed="false">Українська<small>Ukrainisch</small></button>
           <button class="language-button" type="button" data-lang="ru" aria-pressed="false">Русский<small>Russisch</small></button>
+          <button class="language-button" type="button" data-lang="prs" aria-pressed="false">دری<small>Dari</small></button>
+        </div>
+
+        <div class="language-grid more-languages" id="moreLanguages" role="group" aria-label="Weitere Sprachen">
           <button class="language-button" type="button" data-lang="sq" aria-pressed="false">Shqip<small>Albanisch</small></button>
           <button class="language-button" type="button" data-lang="bs" aria-pressed="false">Bosanski<small>Bosnisch</small></button>
-          <button class="language-button" type="button" data-lang="prs" aria-pressed="false">دری<small>Dari</small></button>
           <button class="language-button" type="button" data-lang="fa" aria-pressed="false">فارسی<small>Farsi/Persisch</small></button>
           <button class="language-button" type="button" data-lang="mk" aria-pressed="false">Македонски<small>Mazedonisch</small></button>
           <button class="language-button" type="button" data-lang="sr" aria-pressed="false">Српски<small>Serbisch</small></button>
@@ -460,6 +587,10 @@
           <button class="language-button" type="button" data-lang="bg" aria-pressed="false">Български<small>Bulgarisch</small></button>
           <button class="language-button" type="button" data-lang="fr" aria-pressed="false">Français<small>Französisch</small></button>
         </div>
+
+        <button class="toggle-button" type="button" id="toggleLanguages" aria-expanded="false" aria-controls="moreLanguages">
+          Weitere Sprachen anzeigen · More languages
+        </button>
 
         <p class="selected-language" id="selectedLanguage" aria-live="polite">Noch keine Sprache ausgewählt.</p>
 
@@ -485,6 +616,10 @@
 
     <section class="card" aria-labelledby="info-title">
       <h3 class="section-step" id="info-title">Wichtige Informationen</h3>
+      <div class="event-banner">
+        <strong id="eventBannerTitle">Aufbruch-Workshop</strong>
+        <span id="eventBannerText">13. August 2026 · 10:30 bis 16:30 Uhr · Bodenstedt-Wilhelmschule Peine</span>
+      </div>
       <div class="info-grid" aria-label="Wichtige Informationen">
         <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
         <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
@@ -495,6 +630,8 @@
       </div>
     </section>
   </main>
+
+  <button class="change-language-fab" type="button" id="changeLanguageButton">Sprache ändern</button>
 
   <footer class="site-footer">
     <p>© Bodenstedt-Wilhelmschule Peine · Keine Cookies · Kein Tracking · Für Smartphones optimiert.</p>
@@ -969,6 +1106,8 @@
       infoTime: document.getElementById("infoTime"),
       infoPlace: document.getElementById("infoPlace"),
       infoGoal: document.getElementById("infoGoal"),
+      eventBannerTitle: document.getElementById("eventBannerTitle"),
+      eventBannerText: document.getElementById("eventBannerText"),
       letterDate: document.getElementById("letterDate"),
       subject: document.getElementById("letter-subject"),
       salutation: document.getElementById("salutation"),
@@ -982,6 +1121,18 @@
       de: "Deutsch", en: "English", tr: "Türkçe", ar: "العربية", uk: "Українська", ru: "Русский",
       fr: "Français", pl: "Polski", ro: "Română", bg: "Български", fa: "فارسی", ku: "Kurdî",
       sq: "Shqip", bs: "Bosanski", prs: "دری", mk: "Македонски", rom: "Romani", sr: "Српски", uz: "Oʻzbekcha"
+    };
+
+    const uiText = {
+      de: { selected: "Ausgewählt", print: "Drucken", read: "Vorlesen / Stop", change: "Sprache ändern", more: "Weitere Sprachen anzeigen · More languages", less: "Weniger Sprachen anzeigen", info: "Wichtige Informationen", search: "Sprache suchen …" },
+      en: { selected: "Selected", print: "Print", read: "Read aloud / Stop", change: "Change language", more: "Show more languages", less: "Show fewer languages", info: "Important information", search: "Search language …" },
+      tr: { selected: "Seçildi", print: "Yazdır", read: "Sesli oku / Durdur", change: "Dili değiştir", more: "Daha fazla dil göster", less: "Daha az dil göster", info: "Önemli bilgiler", search: "Dil ara …" },
+      ar: { selected: "تم الاختيار", print: "طباعة", read: "استماع / إيقاف", change: "تغيير اللغة", more: "عرض لغات أخرى", less: "عرض لغات أقل", info: "معلومات مهمة", search: "ابحث عن اللغة …" },
+      uk: { selected: "Вибрано", print: "Друк", read: "Читати / Стоп", change: "Змінити мову", more: "Показати інші мови", less: "Показати менше мов", info: "Важлива інформація", search: "Пошук мови …" },
+      ru: { selected: "Выбрано", print: "Печать", read: "Читать / Стоп", change: "Изменить язык", more: "Показать другие языки", less: "Показать меньше языков", info: "Важная информация", search: "Поиск языка …" },
+      fr: { selected: "Sélectionné", print: "Imprimer", read: "Lire / Stop", change: "Changer de langue", more: "Afficher plus de langues", less: "Afficher moins de langues", info: "Informations importantes", search: "Chercher une langue …" },
+      pl: { selected: "Wybrano", print: "Drukuj", read: "Czytaj / Stop", change: "Zmień język", more: "Pokaż więcej języków", less: "Pokaż mniej języków", info: "Ważne informacje", search: "Szukaj języka …" },
+      default: { selected: "Ausgewählt", print: "Drucken", read: "Vorlesen / Stop", change: "Sprache ändern", more: "Weitere Sprachen anzeigen · More languages", less: "Weniger Sprachen anzeigen", info: "Wichtige Informationen", search: "Sprache suchen …" }
     };
 
     function renderLanguage(code) {
@@ -999,15 +1150,28 @@
       keys.infoTime.textContent = t.time;
       keys.infoPlace.textContent = t.place;
       keys.infoGoal.textContent = t.goal;
+      keys.eventBannerTitle.textContent = t.topic || "Aufbruch-Workshop";
+      keys.eventBannerText.textContent = t.eventDate + " · " + t.time + " · " + t.place;
       keys.letterDate.textContent = "Peine, " + t.date;
       keys.subject.textContent = t.subject;
       keys.salutation.textContent = t.salutation;
       keys.closing.textContent = t.closing;
       keys.signer.textContent = t.signer;
       keys.letter.setAttribute("dir", t.dir);
+      const ui = uiText[code] || uiText.default;
       const selectedLanguage = document.getElementById("selectedLanguage");
       if (selectedLanguage) {
-        selectedLanguage.textContent = "Ausgewählt: " + (languageLabels[code] || code);
+        selectedLanguage.textContent = ui.selected + ": " + (languageLabels[code] || code);
+      }
+      document.querySelector(".action-button").textContent = ui.print;
+      document.getElementById("readButton").textContent = ui.read;
+      document.getElementById("changeLanguageButton").textContent = ui.change;
+      document.getElementById("info-title").textContent = ui.info;
+      document.getElementById("languageSearch").placeholder = ui.search;
+      const toggle = document.getElementById("toggleLanguages");
+      const moreBox = document.getElementById("moreLanguages");
+      if (toggle && moreBox) {
+        toggle.textContent = moreBox.classList.contains("is-open") ? ui.less : ui.more;
       }
 
       keys.letterText.innerHTML = "";
@@ -1033,14 +1197,39 @@
       });
     });
 
+    const toggleLanguages = document.getElementById("toggleLanguages");
+    const moreLanguages = document.getElementById("moreLanguages");
+
+    toggleLanguages.addEventListener("click", () => {
+      const isOpen = moreLanguages.classList.toggle("is-open");
+      toggleLanguages.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      const current = localStorage.getItem("preferredLanguage") || "de";
+      const ui = uiText[current] || uiText.default;
+      toggleLanguages.textContent = isOpen ? ui.less : ui.more;
+    });
+
     const languageSearch = document.getElementById("languageSearch");
     languageSearch.addEventListener("input", () => {
       const query = languageSearch.value.trim().toLowerCase();
+      if (query.length > 0) {
+        moreLanguages.classList.add("is-open");
+        toggleLanguages.setAttribute("aria-expanded", "true");
+      }
       document.querySelectorAll(".language-button").forEach(button => {
         const text = button.innerText.toLowerCase();
         button.hidden = query.length > 0 && !text.includes(query);
       });
     });
+
+    const changeLanguageButton = document.getElementById("changeLanguageButton");
+    changeLanguageButton.addEventListener("click", () => {
+      document.getElementById("language-title").scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("languageSearch").focus({ preventScroll: true });
+    });
+
+    window.addEventListener("scroll", () => {
+      changeLanguageButton.classList.toggle("is-visible", window.scrollY > 520);
+    }, { passive: true });
 
     let availableVoices = [];
 
