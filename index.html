@@ -137,49 +137,49 @@
     .language-panel {
       background: var(--green-soft);
       border: 2px solid #CBE7CF;
-      border-radius: 18px;
-      padding: 16px;
-      margin: 18px 0 16px;
+      border-radius: 16px;
+      padding: 12px;
+      margin: 14px 0 14px;
     }
 
     .language-panel-title {
       display: block;
       font-weight: 900;
       color: var(--green-dark);
-      margin-bottom: 8px;
-      font-size: clamp(1.18rem, 4vw, 1.55rem);
+      margin-bottom: 6px;
+      font-size: clamp(1.05rem, 3.4vw, 1.3rem);
     }
 
     .language-help {
       color: var(--muted);
-      margin: -4px 0 12px;
-      font-size: .95rem;
+      margin: -2px 0 8px;
+      font-size: .9rem;
     }
 
     .language-search {
       width: 100%;
       border: 2px solid #CBE7CF;
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      font-size: 1rem;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-size: .96rem;
       color: var(--text);
       background: white;
     }
 
     .language-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
     }
 
     .language-button,
     .action-button {
       appearance: none;
-      border-radius: 15px;
-      padding: 12px 10px;
-      min-height: 64px;
-      font-size: 1.05rem;
+      border-radius: 12px;
+      padding: 8px 6px;
+      min-height: 46px;
+      font-size: .92rem;
       font-weight: 900;
       cursor: pointer;
       background: white;
@@ -191,11 +191,7 @@
     }
 
     .language-button small {
-      display: block;
-      margin-top: 1px;
-      font-size: .76rem;
-      font-weight: 700;
-      color: var(--muted);
+      display: none;
     }
 
     .language-button[aria-pressed="true"] {
@@ -231,7 +227,7 @@
       border: 1px solid #CBE7CF;
       border-radius: 999px;
       display: inline-block;
-      padding: 7px 11px;
+      padding: 5px 9px;
       font-weight: 800;
       color: var(--green-dark);
     }
@@ -347,20 +343,21 @@
       }
 
       .language-panel {
-        margin: 14px 0;
-        padding: 12px;
-        border-radius: 15px;
+        margin: 12px 0;
+        padding: 10px;
+        border-radius: 14px;
       }
 
       .language-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
       }
 
       .language-button {
-        min-height: 60px;
-        padding: 11px 8px;
-        font-size: 1rem;
+        min-height: 42px;
+        padding: 7px 4px;
+        font-size: .88rem;
+        border-radius: 10px;
       }
 
       .button-row,
@@ -375,12 +372,16 @@
 
     @media (max-width: 390px) {
       .language-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .language-button,
+      .language-button {
+        min-height: 40px;
+        font-size: .86rem;
+      }
+
       .action-button {
-        min-height: 50px;
+        min-height: 46px;
       }
     }
 
@@ -433,9 +434,8 @@
       <p class="intro" id="intro">Wählen Sie zuerst Ihre Sprache. Danach erscheint der Elternbrief in der ausgewählten Sprache.</p>
 
       <div class="language-panel" aria-labelledby="language-title">
-        <span class="language-panel-title" id="language-title">1. Sprache auswählen</span>
-        <p class="language-help">Tippen Sie auf Ihre Sprache. Die Namen der Sprachen stehen in der jeweiligen Sprache.</p>
-        <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen / Search language …" aria-label="Sprache suchen">
+        <span class="language-panel-title" id="language-title">Sprache auswählen</span>
+        <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen …" aria-label="Sprache suchen">
         <div class="language-grid" id="languageGrid" role="group" aria-label="Sprache auswählen">
           <button class="language-button" type="button" data-lang="de" aria-pressed="true">Deutsch<small>Original</small></button>
           <button class="language-button" type="button" data-lang="ar" aria-pressed="false">العربية<small>Arabisch</small></button>
@@ -450,6 +450,7 @@
           <button class="language-button" type="button" data-lang="fa" aria-pressed="false">فارسی<small>Farsi/Persisch</small></button>
           <button class="language-button" type="button" data-lang="mk" aria-pressed="false">Македонски<small>Mazedonisch</small></button>
           <button class="language-button" type="button" data-lang="sr" aria-pressed="false">Српски<small>Serbisch</small></button>
+          <button class="language-button" type="button" data-lang="uz" aria-pressed="false">Oʻzbekcha<small>Usbekisch</small></button>
           <button class="language-button" type="button" data-lang="rom" aria-pressed="false">Romani<small>Romani</small></button>
           <button class="language-button" type="button" data-lang="pl" aria-pressed="false">Polski<small>Polnisch</small></button>
           <button class="language-button" type="button" data-lang="ro" aria-pressed="false">Română<small>Rumänisch</small></button>
@@ -466,15 +467,6 @@
         <p class="speech-hint" id="speechHint" aria-live="polite"></p>
       </div>
 
-      <h3 class="section-step">2. Wichtige Informationen</h3>
-      <div class="info-grid" aria-label="Wichtige Informationen">
-        <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
-        <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
-        <div class="info-item"><strong>Termin</strong><span id="infoEventDate">13. August 2026</span></div>
-        <div class="info-item"><strong>Uhrzeit</strong><span id="infoTime">10:30 bis 16:30 Uhr</span></div>
-        <div class="info-item"><strong>Ort</strong><span id="infoPlace">Bodenstedt-Wilhelmschule Peine</span></div>
-        <div class="info-item"><strong>Ziel</strong><span id="infoGoal">Gemeinsame Weiterentwicklung der Schule mit Schülerinnen, Schülern, Eltern und Lehrkräften</span></div>
-      </div>
     </section>
 
     <section class="card letter" id="letter" aria-labelledby="letter-subject">
@@ -486,6 +478,18 @@
         <span id="closing">Herzliche Grüße</span><br>
         <strong id="signer">W. Sammer, Schulleiter</strong>
       </p>
+    </section>
+
+    <section class="card" aria-labelledby="info-title">
+      <h3 class="section-step" id="info-title">Wichtige Informationen</h3>
+      <div class="info-grid" aria-label="Wichtige Informationen">
+        <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
+        <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
+        <div class="info-item"><strong>Termin</strong><span id="infoEventDate">13. August 2026</span></div>
+        <div class="info-item"><strong>Uhrzeit</strong><span id="infoTime">10:30 bis 16:30 Uhr</span></div>
+        <div class="info-item"><strong>Ort</strong><span id="infoPlace">Bodenstedt-Wilhelmschule Peine</span></div>
+        <div class="info-item"><strong>Ziel</strong><span id="infoGoal">Gemeinsame Weiterentwicklung der Schule mit Schülerinnen, Schülern, Eltern und Lehrkräften</span></div>
+      </div>
     </section>
   </main>
 
@@ -855,6 +859,30 @@
         signer: "W. Sammer, директор на училиштето",
         note: ""
       },
+      uz: {
+        htmlLang: "uz", dir: "ltr",
+        pageTitle: "Maktab xatini o‘z tilingizda o‘qing",
+        intro: "Bu yerda Bodenstedt-Wilhelmschule maktabining hozirgi xatini turli tillarda o‘qishingiz mumkin. Iltimos, tilingizni tanlang.",
+        subject: "Bizga sizning yordamingiz juda zarur!",
+        date: "10-iyun 2026-yil",
+        topic: "Maktabni rivojlantirish jarayonida ishtirok etish",
+        eventDate: "13-avgust 2026-yil",
+        time: "soat 10:30 dan 16:30 gacha",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "O‘quvchilar, ota-onalar va o‘qituvchilar bilan birgalikda maktabni rivojlantirish",
+        salutation: "Hurmatli ota-onalar, aziz o‘quvchilar,",
+        paragraphs: [
+          "biz sizni muhim va qiziqarli rivojlanish jarayonida ishtirok etishga taklif qilishdan mamnunmiz. Maktabimiz kelajakka yo‘naltirilgan va faol maktab bo‘lishni xohlaydi. Buning uchun bizga o‘quvchilar, ota-onalar va o‘qituvchilarning hamkorligi kerak.",
+          "O‘quv yili boshidan beri bizni Schulen im Aufbruch (SiA) jamoasi qo‘llab-quvvatlamoqda. Bu jamoa maqsadimizni doimo yodda tutishimizga va maktabimizni birgalikda rivojlantirishimizga yordam beradi.",
+          "Sizning fikrlaringiz va tajribangiz biz uchun juda muhim. Ular maktabni yanada rivojlantirishga va maktab jamoamizni mustahkamlashga yordam beradi. Biz birgalikda barqaror hayot tarzining qadriyatlarini yetkazishni xohlaymiz.",
+          "Biz maktabni faqat dars o‘tiladigan joy sifatida emas, balki ishtirok, qo‘llab-quvvatlash va umr bo‘yi o‘rganish joyi sifatida tasavvur qilamiz. Har kim o‘z fikri va tajribasini qo‘shsa, biz yoshlarni yaxshi kelajakni mas’uliyat bilan shakllantirishga tayyorlaydigan ta’lim muhitini yaratamiz.",
+          "13-avgust 2026-yil kuni soat 10:30 dan 16:30 gacha rivojlanish seminari bo‘lib o‘tadi. Shu kuni biz g‘oyalarimizni amalga oshirish uchun birgalikda asos yaratamiz. Maktabimiz kelajagini biz bilan birga shakllantiring!",
+          "Sizning qo‘llab-quvvatlashingiz va ishtirokingizdan mamnun bo‘lamiz."
+        ],
+        closing: "Hurmat bilan",
+        signer: "W. Sammer, maktab direktori",
+        note: ""
+      },
       rom: {
         htmlLang: "rom", dir: "ltr",
         pageTitle: "Drabaren e shkolaqi lil ande tumari čhib",
@@ -950,7 +978,7 @@
     const languageLabels = {
       de: "Deutsch", en: "English", tr: "Türkçe", ar: "العربية", uk: "Українська", ru: "Русский",
       fr: "Français", pl: "Polski", ro: "Română", bg: "Български", fa: "فارسی", ku: "Kurdî",
-      sq: "Shqip", bs: "Bosanski", prs: "دری", mk: "Македонски", rom: "Romani", sr: "Српски"
+      sq: "Shqip", bs: "Bosanski", prs: "دری", mk: "Македонски", rom: "Romani", sr: "Српски", uz: "Oʻzbekcha"
     };
 
     function renderLanguage(code) {
@@ -1041,6 +1069,7 @@
       bs: ["bs-BA", "bs", "hr-HR", "sr-RS"],
       mk: ["mk-MK", "mk"],
       sr: ["sr-RS", "sr"],
+      uz: ["uz-UZ", "uz", "tr-TR", "tr"],
       rom: ["ro-RO", "ro", "sr-RS"]
     };
 
