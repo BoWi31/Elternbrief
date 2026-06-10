@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Elternbrief in Ihrer Sprache lesen | Bodenstedt-Wilhelmschule</title>
   <style>
     :root {
@@ -450,7 +450,7 @@
       }
 
       .language-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(7.5rem, 100%), 1fr));
         gap: 6px;
       }
 
@@ -479,7 +479,7 @@
 
     @media (max-width: 390px) {
       .language-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(7rem, 100%), 1fr));
       }
 
       .language-button {
@@ -520,6 +520,128 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+  
+    /* Dynamische Geräteanpassung */
+    :root {
+      --page-pad: clamp(8px, 2.5vw, 18px);
+      --card-pad: clamp(14px, 3.4vw, 30px);
+      --radius: clamp(14px, 2.5vw, 22px);
+      --touch: clamp(42px, 8vw, 56px);
+    }
+
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+    }
+
+    main {
+      padding-left: var(--page-pad);
+      padding-right: var(--page-pad);
+    }
+
+    .card {
+      padding: var(--card-pad);
+      border-radius: var(--radius);
+    }
+
+    .language-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(8.5rem, 100%), 1fr));
+    }
+
+    .language-button,
+    .action-button,
+    .toggle-button {
+      min-height: var(--touch);
+    }
+
+    .info-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+    }
+
+    .letter {
+      max-width: 78ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .school-logo {
+      width: clamp(190px, 42vw, 340px);
+    }
+
+    .school-name {
+      max-width: 22ch;
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .site-header {
+        position: static;
+      }
+
+      .header-inner {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .school-logo {
+        width: clamp(160px, 28vw, 250px);
+      }
+
+      .card {
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .language-panel {
+        max-width: 900px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .school-name {
+        font-size: 1.22rem;
+      }
+
+      .school-subtitle {
+        font-size: .9rem;
+      }
+
+      .intro {
+        font-size: .96rem;
+      }
+
+      .language-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(7rem, 100%), 1fr));
+      }
+
+      .language-search {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      .letter {
+        font-size: 1.02rem;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .language-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .school-logo {
+        width: min(230px, 86vw);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1278,6 +1400,23 @@
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
     });
+
+
+    function updateDeviceClass() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const root = document.documentElement;
+
+      root.dataset.device =
+        width < 520 ? "phone" :
+        width < 900 ? "tablet" :
+        "desktop";
+
+      root.dataset.orientation = width > height ? "landscape" : "portrait";
+    }
+
+    updateDeviceClass();
+    window.addEventListener("resize", updateDeviceClass, { passive: true });
 
     const savedLanguage = localStorage.getItem("preferredLanguage") || "de";
     renderLanguage(savedLanguage);
