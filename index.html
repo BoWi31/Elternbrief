@@ -136,18 +136,18 @@
 
     .language-panel {
       background: var(--green-soft);
-      border: 1px solid #CBE7CF;
+      border: 2px solid #CBE7CF;
       border-radius: 18px;
-      padding: 14px;
-      margin: 16px 0;
+      padding: 16px;
+      margin: 18px 0 16px;
     }
 
     .language-panel-title {
       display: block;
       font-weight: 900;
       color: var(--green-dark);
-      margin-bottom: 10px;
-      font-size: 1.05rem;
+      margin-bottom: 8px;
+      font-size: clamp(1.18rem, 4vw, 1.55rem);
     }
 
     .language-help {
@@ -170,7 +170,7 @@
     .language-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 9px;
+      gap: 10px;
     }
 
     .language-button,
@@ -178,8 +178,8 @@
       appearance: none;
       border-radius: 15px;
       padding: 12px 10px;
-      min-height: 56px;
-      font-size: 1rem;
+      min-height: 64px;
+      font-size: 1.05rem;
       font-weight: 900;
       cursor: pointer;
       background: white;
@@ -219,10 +219,25 @@
       margin-top: 12px;
     }
 
-    .speech-hint {
+    .speech-hint,
+    .selected-language {
       margin: 10px 0 0;
       color: var(--muted);
       font-size: .92rem;
+    }
+
+    .selected-language {
+      background: white;
+      border: 1px solid #CBE7CF;
+      border-radius: 999px;
+      display: inline-block;
+      padding: 7px 11px;
+      font-weight: 800;
+      color: var(--green-dark);
+    }
+
+    .section-step {
+      margin-top: 18px;
     }
 
     .action-button {
@@ -343,9 +358,9 @@
       }
 
       .language-button {
-        min-height: 54px;
-        padding: 10px 8px;
-        font-size: .98rem;
+        min-height: 60px;
+        padding: 11px 8px;
+        font-size: 1rem;
       }
 
       .button-row,
@@ -414,13 +429,13 @@
 
   <main>
     <section class="card hero" aria-labelledby="page-title">
-      <h2 id="page-title">Elternbrief in Ihrer Sprache lesen</h2>
-      <p class="intro" id="intro">Hier können Sie den aktuellen Elternbrief der Bodenstedt-Wilhelmschule in verschiedenen Sprachen lesen. Bitte wählen Sie Ihre Sprache aus.</p>
+      <h2 id="page-title">Sprache wählen · Choose language · Dil seçin · اختر اللغة</h2>
+      <p class="intro" id="intro">Wählen Sie zuerst Ihre Sprache. Danach erscheint der Elternbrief in der ausgewählten Sprache.</p>
 
       <div class="language-panel" aria-labelledby="language-title">
-        <span class="language-panel-title" id="language-title">Sprache auswählen</span>
-        <p class="language-help">Tippen Sie auf eine Sprache. Der Elternbrief öffnet sich danach automatisch.</p>
-        <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen …" aria-label="Sprache suchen">
+        <span class="language-panel-title" id="language-title">1. Sprache auswählen</span>
+        <p class="language-help">Tippen Sie auf Ihre Sprache. Die Namen der Sprachen stehen in der jeweiligen Sprache.</p>
+        <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen / Search language …" aria-label="Sprache suchen">
         <div class="language-grid" id="languageGrid" role="group" aria-label="Sprache auswählen">
           <button class="language-button" type="button" data-lang="de" aria-pressed="true">Deutsch<small>Original</small></button>
           <button class="language-button" type="button" data-lang="ar" aria-pressed="false">العربية<small>Arabisch</small></button>
@@ -442,6 +457,8 @@
           <button class="language-button" type="button" data-lang="fr" aria-pressed="false">Français<small>Französisch</small></button>
         </div>
 
+        <p class="selected-language" id="selectedLanguage" aria-live="polite">Noch keine Sprache ausgewählt.</p>
+
         <div class="button-row" aria-label="Aktionen">
           <button class="action-button" type="button" onclick="window.print()">Drucken</button>
           <button class="action-button secondary" type="button" id="readButton">Vorlesen / Stop</button>
@@ -449,6 +466,7 @@
         <p class="speech-hint" id="speechHint" aria-live="polite"></p>
       </div>
 
+      <h3 class="section-step">2. Wichtige Informationen</h3>
       <div class="info-grid" aria-label="Wichtige Informationen">
         <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
         <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
@@ -929,6 +947,12 @@
       letter: document.getElementById("letter")
     };
 
+    const languageLabels = {
+      de: "Deutsch", en: "English", tr: "Türkçe", ar: "العربية", uk: "Українська", ru: "Русский",
+      fr: "Français", pl: "Polski", ro: "Română", bg: "Български", fa: "فارسی", ku: "Kurdî",
+      sq: "Shqip", bs: "Bosanski", prs: "دری", mk: "Македонски", rom: "Romani", sr: "Српски"
+    };
+
     function renderLanguage(code) {
       const t = translations[code] || translations.de;
 
@@ -950,6 +974,10 @@
       keys.closing.textContent = t.closing;
       keys.signer.textContent = t.signer;
       keys.letter.setAttribute("dir", t.dir);
+      const selectedLanguage = document.getElementById("selectedLanguage");
+      if (selectedLanguage) {
+        selectedLanguage.textContent = "Ausgewählt: " + (languageLabels[code] || code);
+      }
 
       keys.letterText.innerHTML = "";
       t.paragraphs.forEach(paragraph => {
