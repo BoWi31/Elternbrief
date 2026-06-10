@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elternbrief in Ihrer Sprache lesen | Bodenstedt-Wilhelmschule</title>
+  <style>
+    :root {
+      /* BoWi-Farben, aus Logo/Briefkopf angenähert */
+      --green: #368043;
+      --green-dark: #295E34;
+      --blue: #24518B;
+      --blue-dark: #173A5E;
+      --text: #2C3339;
+      --muted: #5B6673;
+      --border: #D9E2EC;
+      --background: #F6F8FB;
+      --card: #FFFFFF;
+      --blue-soft: #EAF1F8;
+      --green-soft: #EEF7F0;
+      --focus: #F6C445;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(54,128,67,0.10), transparent 32rem),
+        linear-gradient(180deg, #FFFFFF 0%, var(--background) 18rem);
+      color: var(--text);
+      line-height: 1.58;
+      font-size: 18px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -80px;
+      left: 12px;
+      background: white;
+      color: var(--blue-dark);
+      padding: 10px 14px;
+      border-radius: 10px;
+      z-index: 10;
+      font-weight: 800;
+    }
+
+    .skip-link:focus { top: 12px; }
+
+    .site-header {
+      background: linear-gradient(135deg, var(--blue-dark), var(--green-dark));
+      color: white;
+      border-bottom: 6px solid var(--green);
+    }
+
+    .header-inner,
+    main,
+    .site-footer {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      padding: 22px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-placeholder {
+      width: 70px;
+      height: 70px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.13);
+      border: 2px solid rgba(255,255,255,0.65);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      letter-spacing: .04em;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .school-name {
+      margin: 0;
+      font-size: clamp(1.25rem, 4.2vw, 2.1rem);
+      line-height: 1.1;
+    }
+
+    .school-subtitle {
+      margin: 5px 0 0;
+      opacity: .95;
+      font-size: clamp(.92rem, 2.7vw, 1rem);
+    }
+
+    main {
+      padding: 16px 12px 36px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.96);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(16px, 3vw, 28px);
+      box-shadow: 0 10px 28px rgba(23,58,94,.08);
+      margin-bottom: 14px;
+    }
+
+    .hero {
+      border-top: 6px solid var(--green);
+    }
+
+    h2, h3 {
+      color: var(--blue-dark);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 6vw, 2.35rem);
+      margin: 0 0 8px;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .intro {
+      color: var(--muted);
+      margin: 0 0 16px;
+      max-width: 70ch;
+    }
+
+    .language-panel {
+      background: var(--green-soft);
+      border: 1px solid #CBE7CF;
+      border-radius: 18px;
+      padding: 14px;
+      margin: 16px 0;
+    }
+
+    .language-panel-title {
+      display: block;
+      font-weight: 900;
+      color: var(--green-dark);
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .language-help {
+      color: var(--muted);
+      margin: -4px 0 12px;
+      font-size: .95rem;
+    }
+
+    .language-search {
+      width: 100%;
+      border: 2px solid #CBE7CF;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--text);
+      background: white;
+    }
+
+    .language-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .language-button,
+    .action-button {
+      appearance: none;
+      border-radius: 15px;
+      padding: 12px 10px;
+      min-height: 56px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      background: white;
+      color: var(--blue-dark);
+      border: 2px solid #CBE7CF;
+      text-align: center;
+      box-shadow: 0 2px 0 rgba(15,23,42,.06);
+      touch-action: manipulation;
+    }
+
+    .language-button small {
+      display: block;
+      margin-top: 1px;
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .language-button[aria-pressed="true"] {
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+      color: white;
+    }
+
+    .language-button[aria-pressed="true"] small {
+      color: rgba(255,255,255,.88);
+    }
+
+    .language-button[hidden] {
+      display: none;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .action-button {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+      border-radius: 999px;
+    }
+
+    .action-button.secondary {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    button:hover,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .info-item {
+      background: var(--blue-soft);
+      border-left: 5px solid var(--blue);
+      padding: 11px 12px;
+      border-radius: 13px;
+      min-height: 74px;
+    }
+
+    .info-item strong {
+      display: block;
+      color: var(--blue-dark);
+      font-size: .84rem;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+    .letter {
+      font-size: clamp(1.04rem, 2.8vw, 1.16rem);
+    }
+
+    .letter-meta {
+      color: var(--muted);
+      font-weight: 800;
+      margin: 0 0 10px;
+    }
+
+    .letter h2 {
+      color: var(--green-dark);
+      margin-top: 0;
+    }
+
+    .salutation {
+      font-weight: 800;
+      margin-top: 18px;
+    }
+
+    .signature {
+      margin-top: 24px;
+    }
+
+    .site-footer {
+      padding: 0 14px 26px;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    [dir="rtl"] .info-item {
+      border-left: 0;
+      border-right: 5px solid var(--blue);
+    }
+
+    @media (max-width: 760px) {
+      body { font-size: 17px; }
+
+      .header-inner {
+        padding: 16px 12px;
+      }
+
+      .logo-placeholder {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        font-size: .86rem;
+      }
+
+      main {
+        padding: 12px 8px 28px;
+      }
+
+      .card {
+        border-radius: 16px;
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+
+      .language-panel {
+        margin: 14px 0;
+        padding: 12px;
+        border-radius: 15px;
+      }
+
+      .language-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .language-button {
+        min-height: 54px;
+        padding: 10px 8px;
+        font-size: .98rem;
+      }
+
+      .button-row,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-item {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .language-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .language-button,
+      .action-button {
+        min-height: 50px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        font-size: 12pt;
+      }
+
+      .site-header,
+      .language-panel,
+      .site-footer,
+      .skip-link {
+        display: none;
+      }
+
+      main {
+        padding: 0;
+        width: 100%;
+      }
+
+      .card {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#letter">Direkt zum Elternbrief</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-placeholder" aria-label="BoWi-Logo-Platzhalter">BoWi</div>
+      <div>
+        <h1 class="school-name">Bodenstedt-Wilhelmschule Peine</h1>
+        <p class="school-subtitle">Mehrsprachige Elterninformation</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card hero" aria-labelledby="page-title">
+      <h2 id="page-title">Elternbrief in Ihrer Sprache lesen</h2>
+      <p class="intro" id="intro">Hier können Sie den aktuellen Elternbrief der Bodenstedt-Wilhelmschule in verschiedenen Sprachen lesen. Bitte wählen Sie Ihre Sprache aus.</p>
+
+      <div class="language-panel" aria-labelledby="language-title">
+        <span class="language-panel-title" id="language-title">Sprache auswählen</span>
+        <p class="language-help">Tippen Sie auf eine Sprache. Der Elternbrief öffnet sich danach automatisch.</p>
+        <input class="language-search" id="languageSearch" type="search" placeholder="Sprache suchen …" aria-label="Sprache suchen">
+        <div class="language-grid" id="languageGrid" role="group" aria-label="Sprache auswählen">
+          <button class="language-button" type="button" data-lang="de" aria-pressed="true">Deutsch<small>Original</small></button>
+          <button class="language-button" type="button" data-lang="ar" aria-pressed="false">العربية<small>Arabisch</small></button>
+          <button class="language-button" type="button" data-lang="tr" aria-pressed="false">Türkçe<small>Türkisch</small></button>
+          <button class="language-button" type="button" data-lang="ku" aria-pressed="false">Kurdî<small>Kurdisch</small></button>
+          <button class="language-button" type="button" data-lang="en" aria-pressed="false">English<small>Englisch</small></button>
+          <button class="language-button" type="button" data-lang="uk" aria-pressed="false">Українська<small>Ukrainisch</small></button>
+          <button class="language-button" type="button" data-lang="ru" aria-pressed="false">Русский<small>Russisch</small></button>
+          <button class="language-button" type="button" data-lang="sq" aria-pressed="false">Shqip<small>Albanisch</small></button>
+          <button class="language-button" type="button" data-lang="bs" aria-pressed="false">Bosanski<small>Bosnisch</small></button>
+          <button class="language-button" type="button" data-lang="prs" aria-pressed="false">دری<small>Dari</small></button>
+          <button class="language-button" type="button" data-lang="fa" aria-pressed="false">فارسی<small>Farsi/Persisch</small></button>
+          <button class="language-button" type="button" data-lang="mk" aria-pressed="false">Македонски<small>Mazedonisch</small></button>
+          <button class="language-button" type="button" data-lang="sr" aria-pressed="false">Српски<small>Serbisch</small></button>
+          <button class="language-button" type="button" data-lang="rom" aria-pressed="false">Romani<small>Romani</small></button>
+          <button class="language-button" type="button" data-lang="pl" aria-pressed="false">Polski<small>Polnisch</small></button>
+          <button class="language-button" type="button" data-lang="ro" aria-pressed="false">Română<small>Rumänisch</small></button>
+          <button class="language-button" type="button" data-lang="bg" aria-pressed="false">Български<small>Bulgarisch</small></button>
+          <button class="language-button" type="button" data-lang="fr" aria-pressed="false">Français<small>Französisch</small></button>
+        </div>
+
+        <div class="button-row" aria-label="Aktionen">
+          <button class="action-button" type="button" onclick="window.print()">Drucken</button>
+          <button class="action-button secondary" type="button" id="readButton">Vorlesen / Stop</button>
+        </div>
+      </div>
+
+      <div class="info-grid" aria-label="Wichtige Informationen">
+        <div class="info-item"><strong>Datum</strong><span id="infoDate">10. Juni 2026</span></div>
+        <div class="info-item"><strong>Thema</strong><span id="infoTopic">Mitarbeit am Schulentwicklungsprozess</span></div>
+        <div class="info-item"><strong>Termin</strong><span id="infoEventDate">13. August 2026</span></div>
+        <div class="info-item"><strong>Uhrzeit</strong><span id="infoTime">10:30 bis 16:30 Uhr</span></div>
+        <div class="info-item"><strong>Ort</strong><span id="infoPlace">Bodenstedt-Wilhelmschule Peine</span></div>
+        <div class="info-item"><strong>Ziel</strong><span id="infoGoal">Gemeinsame Weiterentwicklung der Schule mit Schülerinnen, Schülern, Eltern und Lehrkräften</span></div>
+      </div>
+    </section>
+
+    <section class="card letter" id="letter" aria-labelledby="letter-subject">
+      <p class="letter-meta" id="letterDate">Peine, 10. Juni 2026</p>
+      <h2 id="letter-subject">Wir brauchen dringend Ihre Mitarbeit!</h2>
+      <p class="salutation" id="salutation">Liebe Eltern, liebe Schülerinnen und Schüler,</p>
+      <div id="letterText"></div>
+      <p class="signature">
+        <span id="closing">Herzliche Grüße</span><br>
+        <strong id="signer">W. Sammer, Schulleiter</strong>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© Bodenstedt-Wilhelmschule Peine · Keine Cookies · Kein Tracking · Für Smartphones optimiert.</p>
+  </footer>
+
+  <script>
+    const translations = {
+      de: {
+        htmlLang: "de", dir: "ltr",
+        pageTitle: "Elternbrief in Ihrer Sprache lesen",
+        intro: "Hier können Sie den aktuellen Elternbrief der Bodenstedt-Wilhelmschule in verschiedenen Sprachen lesen. Bitte wählen Sie Ihre Sprache aus.",
+        subject: "Wir brauchen dringend Ihre Mitarbeit!",
+        date: "10. Juni 2026",
+        topic: "Mitarbeit am Schulentwicklungsprozess",
+        eventDate: "13. August 2026",
+        time: "10:30 bis 16:30 Uhr",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Gemeinsame Weiterentwicklung der Schule mit Schülerinnen, Schülern, Eltern und Lehrkräften",
+        salutation: "Liebe Eltern, liebe Schülerinnen und Schüler,",
+        paragraphs: [
+          "wir freuen uns, euch und Sie auf eine spannende Reise mitzunehmen. Unsere Schule möchte zukunftsorientiert und lebendig sein – und dafür brauchen wir die Mitarbeit von Schülerinnen und Schülern, Eltern und Lehrkräften.",
+          "Seit Anfang des Schuljahres unterstützt uns ein Team von Schulen im Aufbruch (SiA). Dieses Team hilft uns dabei, unser Ziel im Blick zu behalten und unsere Schule gemeinsam weiterzuentwickeln.",
+          "Eure und Ihre Ideen und Erfahrungen sind uns sehr wichtig. Sie helfen uns, die Schule weiterzuentwickeln und unsere Gemeinschaft zu stärken. Gemeinsam möchten wir Werte einer nachhaltigen Lebensweise vermitteln.",
+          "Wir stellen uns eine Schule vor, die mehr ist als Unterricht: ein Ort der Mitbestimmung, Unterstützung und des lebenslangen Lernens. Wenn alle ihre Ideen und Erfahrungen einbringen, schaffen wir eine Lernumgebung, die junge Menschen zu verantwortungsbewussten Gestalterinnen und Gestaltern einer lebenswerten Zukunft befähigt.",
+          "Am 13. August 2026 findet von 10:30 bis 16:30 Uhr der Aufbruch-Workshop statt. An diesem Tag legen wir gemeinsam den Grundstein für die Verwirklichung unserer Ideen. Gestalten Sie mit uns die Zukunft unserer Schule!",
+          "Wir freuen uns auf Ihre Unterstützung und Teilnahme."
+        ],
+        closing: "Herzliche Grüße",
+        signer: "W. Sammer, Schulleiter",
+        note: "Die Übersetzungen dienen der besseren Verständlichkeit. Bei rechtlich oder organisatorisch verbindlichen Fragen gilt der deutsche Originaltext."
+      },
+      en: {
+        htmlLang: "en", dir: "ltr",
+        pageTitle: "Read the school letter in your language",
+        intro: "Here you can read the current letter from Bodenstedt-Wilhelmschule in different languages. Please choose your language.",
+        subject: "We urgently need your support!",
+        date: "10 June 2026",
+        topic: "Participation in school development",
+        eventDate: "13 August 2026",
+        time: "10:30 a.m. to 4:30 p.m.",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Joint development of the school together with students, parents and teachers",
+        salutation: "Dear parents, dear students,",
+        paragraphs: [
+          "we are pleased to invite you to join us on an exciting journey. Our school wants to be forward-looking and lively – and for this we need the cooperation of students, parents and teachers.",
+          "Since the beginning of the school year, a team from Schulen im Aufbruch (SiA) has been supporting us. This team helps us keep our goal in mind and develop our school together.",
+          "Your ideas and experiences are very important to us. They help us develop the school further and strengthen our community. Together, we want to promote values for a sustainable way of life.",
+          "We imagine a school that is more than lessons: a place of participation, support and lifelong learning. When everyone contributes their ideas and experiences, we create a learning environment that helps young people become responsible shapers of a liveable future.",
+          "On 13 August 2026, the development workshop will take place from 10:30 a.m. to 4:30 p.m. On this day, we will lay the foundation for putting our ideas into practice. Help us shape the future of our school!",
+          "We look forward to your support and participation."
+        ],
+        closing: "Kind regards",
+        signer: "W. Sammer, Principal",
+        note: "The translations are provided to support understanding. For legally or organisationally binding questions, the German original text applies."
+      },
+      tr: {
+        htmlLang: "tr", dir: "ltr",
+        pageTitle: "Veli mektubunu kendi dilinizde okuyun",
+        intro: "Burada Bodenstedt-Wilhelmschule'nin güncel veli mektubunu farklı dillerde okuyabilirsiniz. Lütfen dilinizi seçin.",
+        subject: "Desteğinize acilen ihtiyacımız var!",
+        date: "10 Haziran 2026",
+        topic: "Okul gelişim sürecine katılım",
+        eventDate: "13 Ağustos 2026",
+        time: "10:30 - 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Öğrenciler, veliler ve öğretmenlerle birlikte okulun geliştirilmesi",
+        salutation: "Değerli veliler, sevgili öğrenciler,",
+        paragraphs: [
+          "sizleri heyecan verici bir yolculuğa davet etmekten mutluluk duyuyoruz. Okulumuz geleceğe dönük ve canlı bir okul olmak istiyor. Bunun için öğrencilerin, velilerin ve öğretmenlerin desteğine ihtiyacımız var.",
+          "Eğitim yılının başından beri Schulen im Aufbruch (SiA) ekibi bize destek oluyor. Bu ekip, hedefimizi göz önünde tutmamıza ve okulumuzu birlikte geliştirmemize yardımcı oluyor.",
+          "Fikirleriniz ve deneyimleriniz bizim için çok önemlidir. Bunlar okulumuzu geliştirmemize ve okul topluluğumuzu güçlendirmemize yardımcı olur. Birlikte sürdürülebilir bir yaşamın değerlerini aktarmak istiyoruz.",
+          "Okulu yalnızca ders yapılan bir yer olarak değil; katılımın, desteğin ve yaşam boyu öğrenmenin olduğu bir yer olarak görüyoruz. Herkes fikirlerini ve deneyimlerini paylaştığında, gençleri yaşanabilir bir geleceği sorumlulukla şekillendirmeye hazırlayan bir öğrenme ortamı oluştururuz.",
+          "13 Ağustos 2026 tarihinde saat 10:30 ile 16:30 arasında gelişim atölyesi düzenlenecektir. Bu gün, fikirlerimizi hayata geçirmek için ortak bir temel oluşturacağız. Okulumuzun geleceğini bizimle birlikte şekillendirin!",
+          "Desteğinizi ve katılımınızı bekliyoruz."
+        ],
+        closing: "Saygılarımızla",
+        signer: "W. Sammer, Okul Müdürü",
+        note: "Çeviriler daha iyi anlaşılması için hazırlanmıştır. Hukuki veya organizasyonel açıdan bağlayıcı sorularda Almanca orijinal metin geçerlidir."
+      },
+      ar: {
+        htmlLang: "ar", dir: "rtl",
+        pageTitle: "اقرأوا رسالة المدرسة بلغتكم",
+        intro: "يمكنكم هنا قراءة الرسالة الحالية من مدرسة Bodenstedt-Wilhelmschule بعدة لغات. يرجى اختيار اللغة.",
+        subject: "نحن بحاجة ماسّة إلى تعاونكم!",
+        date: "10 يونيو 2026",
+        topic: "المشاركة في تطوير المدرسة",
+        eventDate: "13 أغسطس 2026",
+        time: "من الساعة 10:30 إلى 16:30",
+        place: "مدرسة Bodenstedt-Wilhelmschule في باينه",
+        goal: "تطوير المدرسة بشكل مشترك مع الطالبات والطلاب وأولياء الأمور والمعلمات والمعلمين",
+        salutation: "أولياء الأمور الأعزاء، الطالبات والطلاب الأعزاء،",
+        paragraphs: [
+          "يسعدنا أن ندعوكم للمشاركة معنا في رحلة مثيرة. تريد مدرستنا أن تكون مدرسة حيوية ومتجهة نحو المستقبل، ولذلك نحتاج إلى تعاون الطالبات والطلاب وأولياء الأمور والمعلمات والمعلمين.",
+          "منذ بداية العام الدراسي يدعمنا فريق من Schulen im Aufbruch (SiA). يساعدنا هذا الفريق على الحفاظ على هدفنا والعمل معًا على تطوير مدرستنا.",
+          "أفكاركم وخبراتكم مهمة جدًا بالنسبة لنا. فهي تساعدنا على تطوير المدرسة وتعزيز مجتمعنا المدرسي. نريد معًا نقل قيم أسلوب حياة مستدام.",
+          "نتخيل مدرسة هي أكثر من مجرد دروس: مكان للمشاركة والدعم والتعلم مدى الحياة. عندما يشارك الجميع بأفكارهم وخبراتهم، نخلق بيئة تعلم تساعد الشباب على تحمل المسؤولية في تشكيل مستقبل صالح للعيش.",
+          "ستُقام ورشة الانطلاق يوم 13 أغسطس 2026 من الساعة 10:30 إلى 16:30. في هذا اليوم سنضع معًا الأساس لتحقيق أفكارنا. شاركونا في تشكيل مستقبل مدرستنا!",
+          "نتطلع إلى دعمكم ومشاركتكم."
+        ],
+        closing: "مع أطيب التحيات",
+        signer: "W. Sammer، مدير المدرسة",
+        note: "تُستخدم الترجمات لتسهيل الفهم. في المسائل القانونية أو التنظيمية الملزمة، يكون النص الألماني الأصلي هو المعتمد."
+      },
+      uk: {
+        htmlLang: "uk", dir: "ltr",
+        pageTitle: "Прочитайте лист школи своєю мовою",
+        intro: "Тут ви можете прочитати актуальний лист Bodenstedt-Wilhelmschule різними мовами. Будь ласка, оберіть мову.",
+        subject: "Нам дуже потрібна ваша підтримка!",
+        date: "10 червня 2026 року",
+        topic: "Участь у розвитку школи",
+        eventDate: "13 серпня 2026 року",
+        time: "з 10:30 до 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Спільний розвиток школи разом з учнями, батьками та вчителями",
+        salutation: "Шановні батьки, дорогі учениці та учні,",
+        paragraphs: [
+          "ми раді запросити вас приєднатися до цікавої подорожі. Наша школа прагне бути сучасною та живою, і для цього нам потрібна співпраця учнів, батьків і вчителів.",
+          "З початку навчального року нас підтримує команда Schulen im Aufbruch (SiA). Ця команда допомагає нам не втрачати з поля зору нашу мету та разом розвивати школу.",
+          "Ваші ідеї та досвід дуже важливі для нас. Вони допомагають розвивати школу та зміцнювати нашу спільноту. Разом ми хочемо передавати цінності сталого способу життя.",
+          "Ми уявляємо школу, яка є більшою, ніж просто уроки: місцем участі, підтримки та навчання впродовж життя. Коли всі діляться своїми ідеями та досвідом, ми створюємо навчальне середовище, яке допомагає молодим людям відповідально формувати майбутнє.",
+          "13 серпня 2026 року з 10:30 до 16:30 відбудеться воркшоп розвитку. Цього дня ми разом закладемо основу для реалізації наших ідей. Допоможіть нам формувати майбутнє нашої школи!",
+          "Ми будемо раді вашій підтримці та участі."
+        ],
+        closing: "З повагою",
+        signer: "W. Sammer, директор школи",
+        note: "Переклади призначені для кращого розуміння. У юридично або організаційно обов’язкових питаннях чинним є німецький оригінальний текст."
+      },
+      ru: {
+        htmlLang: "ru", dir: "ltr",
+        pageTitle: "Прочитайте письмо школы на вашем языке",
+        intro: "Здесь вы можете прочитать актуальное письмо Bodenstedt-Wilhelmschule на разных языках. Пожалуйста, выберите язык.",
+        subject: "Нам срочно нужна ваша поддержка!",
+        date: "10 июня 2026 года",
+        topic: "Участие в развитии школы",
+        eventDate: "13 августа 2026 года",
+        time: "с 10:30 до 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Совместное развитие школы вместе с учениками, родителями и учителями",
+        salutation: "Уважаемые родители, дорогие ученицы и ученики,",
+        paragraphs: [
+          "мы рады пригласить вас принять участие в интересном пути развития. Наша школа хочет быть современной и живой, и для этого нам нужна совместная работа учеников, родителей и учителей.",
+          "С начала учебного года нас поддерживает команда Schulen im Aufbruch (SiA). Эта команда помогает нам не терять из виду нашу цель и вместе развивать школу.",
+          "Ваши идеи и опыт очень важны для нас. Они помогают развивать школу и укреплять наше школьное сообщество. Вместе мы хотим передавать ценности устойчивого образа жизни.",
+          "Мы представляем себе школу, которая является чем-то большим, чем просто уроки: местом участия, поддержки и обучения на протяжении всей жизни. Когда все вносят свои идеи и опыт, мы создаём образовательную среду, которая помогает молодым людям ответственно формировать достойное будущее.",
+          "13 августа 2026 года с 10:30 до 16:30 состоится семинар по развитию школы. В этот день мы вместе заложим основу для реализации наших идей. Помогите нам формировать будущее нашей школы!",
+          "Мы будем рады вашей поддержке и участию."
+        ],
+        closing: "С уважением",
+        signer: "W. Sammer, директор школы",
+        note: "Переводы служат для лучшего понимания. В юридически или организационно обязательных вопросах действительным является немецкий оригинальный текст."
+      },
+      fr: {
+        htmlLang: "fr", dir: "ltr",
+        pageTitle: "Lire la lettre de l’école dans votre langue",
+        intro: "Vous pouvez lire ici la lettre actuelle de la Bodenstedt-Wilhelmschule dans différentes langues. Veuillez choisir votre langue.",
+        subject: "Nous avons urgemment besoin de votre soutien !",
+        date: "10 juin 2026",
+        topic: "Participation au développement de l’école",
+        eventDate: "13 août 2026",
+        time: "de 10 h 30 à 16 h 30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Développement commun de l’école avec les élèves, les parents et les enseignants",
+        salutation: "Chers parents, chères élèves et chers élèves,",
+        paragraphs: [
+          "nous sommes heureux de vous inviter à participer à un parcours passionnant. Notre école souhaite être tournée vers l’avenir et vivante. Pour cela, nous avons besoin de la coopération des élèves, des parents et des enseignants.",
+          "Depuis le début de l’année scolaire, une équipe de Schulen im Aufbruch (SiA) nous accompagne. Elle nous aide à garder notre objectif en vue et à développer notre école ensemble.",
+          "Vos idées et vos expériences sont très importantes pour nous. Elles nous aident à faire évoluer l’école et à renforcer notre communauté. Ensemble, nous voulons transmettre les valeurs d’un mode de vie durable.",
+          "Nous imaginons une école qui soit plus qu’un lieu de cours : un lieu de participation, de soutien et d’apprentissage tout au long de la vie. Lorsque chacun apporte ses idées et ses expériences, nous créons un environnement d’apprentissage qui aide les jeunes à devenir des acteurs responsables d’un avenir vivable.",
+          "Le 13 août 2026, l’atelier de développement aura lieu de 10 h 30 à 16 h 30. Ce jour-là, nous poserons ensemble les bases de la réalisation de nos idées. Contribuez avec nous à façonner l’avenir de notre école !",
+          "Nous nous réjouissons de votre soutien et de votre participation."
+        ],
+        closing: "Cordialement",
+        signer: "W. Sammer, directeur de l’école",
+        note: "Les traductions servent à faciliter la compréhension. Pour les questions juridiquement ou organisationnellement contraignantes, le texte original allemand fait foi."
+      },
+      pl: {
+        htmlLang: "pl", dir: "ltr",
+        pageTitle: "Przeczytaj list szkolny w swoim języku",
+        intro: "Tutaj można przeczytać aktualny list Bodenstedt-Wilhelmschule w różnych językach. Proszę wybrać język.",
+        subject: "Pilnie potrzebujemy Państwa wsparcia!",
+        date: "10 czerwca 2026 r.",
+        topic: "Udział w rozwoju szkoły",
+        eventDate: "13 sierpnia 2026 r.",
+        time: "od 10:30 do 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Wspólny rozwój szkoły razem z uczniami, rodzicami i nauczycielami",
+        salutation: "Szanowni Rodzice, drogie Uczennice i drodzy Uczniowie,",
+        paragraphs: [
+          "cieszymy się, że możemy zaprosić Państwa i Was do udziału w ważnym procesie rozwoju. Nasza szkoła chce być nowoczesna i żywa, a do tego potrzebujemy współpracy uczniów, rodziców i nauczycieli.",
+          "Od początku roku szkolnego wspiera nas zespół Schulen im Aufbruch (SiA). Pomaga nam on pamiętać o naszym celu i wspólnie rozwijać szkołę.",
+          "Państwa i Wasze pomysły oraz doświadczenia są dla nas bardzo ważne. Pomagają nam rozwijać szkołę i wzmacniać naszą społeczność. Wspólnie chcemy przekazywać wartości zrównoważonego stylu życia.",
+          "Wyobrażamy sobie szkołę, która jest czymś więcej niż tylko lekcjami: miejscem współdecydowania, wsparcia i uczenia się przez całe życie. Gdy wszyscy wnoszą swoje pomysły i doświadczenia, tworzymy środowisko uczenia się, które pomaga młodym ludziom odpowiedzialnie kształtować dobrą przyszłość.",
+          "13 sierpnia 2026 r. w godzinach od 10:30 do 16:30 odbędzie się warsztat rozwojowy. Tego dnia wspólnie położymy fundament pod realizację naszych pomysłów. Współtwórzcie z nami przyszłość naszej szkoły!",
+          "Cieszymy się na Państwa wsparcie i udział."
+        ],
+        closing: "Z poważaniem",
+        signer: "W. Sammer, dyrektor szkoły",
+        note: "Tłumaczenia służą lepszemu zrozumieniu. W sprawach prawnie lub organizacyjnie wiążących obowiązuje niemiecki tekst oryginalny."
+      },
+      ro: {
+        htmlLang: "ro", dir: "ltr",
+        pageTitle: "Citiți scrisoarea școlii în limba dumneavoastră",
+        intro: "Aici puteți citi scrisoarea actuală a școlii Bodenstedt-Wilhelmschule în mai multe limbi. Vă rugăm să alegeți limba.",
+        subject: "Avem nevoie urgentă de sprijinul dumneavoastră!",
+        date: "10 iunie 2026",
+        topic: "Participarea la dezvoltarea școlii",
+        eventDate: "13 august 2026",
+        time: "10:30 - 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Dezvoltarea comună a școlii împreună cu elevii, părinții și profesorii",
+        salutation: "Stimați părinți, dragi eleve și dragi elevi,",
+        paragraphs: [
+          "ne bucurăm să vă invităm să participați la un proces important și interesant. Școala noastră dorește să fie orientată spre viitor și plină de viață, iar pentru aceasta avem nevoie de colaborarea elevilor, părinților și profesorilor.",
+          "De la începutul anului școlar suntem sprijiniți de o echipă de la Schulen im Aufbruch (SiA). Această echipă ne ajută să ne păstrăm obiectivul în atenție și să dezvoltăm școala împreună.",
+          "Ideile și experiențele dumneavoastră sunt foarte importante pentru noi. Ele ne ajută să dezvoltăm școala și să consolidăm comunitatea noastră. Împreună dorim să transmitem valori ale unui stil de viață durabil.",
+          "Ne imaginăm o școală care este mai mult decât locul unde au loc lecțiile: un loc al participării, sprijinului și învățării pe tot parcursul vieții. Când fiecare contribuie cu ideile și experiențele sale, creăm un mediu de învățare care îi ajută pe tineri să modeleze responsabil un viitor bun.",
+          "Pe 13 august 2026, între orele 10:30 și 16:30, va avea loc atelierul de dezvoltare. În această zi vom pune împreună bazele realizării ideilor noastre. Haideți să modelăm împreună viitorul școlii noastre!",
+          "Așteptăm cu bucurie sprijinul și participarea dumneavoastră."
+        ],
+        closing: "Cu stimă",
+        signer: "W. Sammer, directorul școlii",
+        note: "Traducerile sunt oferite pentru o mai bună înțelegere. Pentru întrebări cu caracter juridic sau organizatoric obligatoriu, este valabil textul original german."
+      },
+      bg: {
+        htmlLang: "bg", dir: "ltr",
+        pageTitle: "Прочетете писмото на училището на Вашия език",
+        intro: "Тук можете да прочетете актуалното писмо на Bodenstedt-Wilhelmschule на различни езици. Моля, изберете език.",
+        subject: "Спешно се нуждаем от Вашата подкрепа!",
+        date: "10 юни 2026 г.",
+        topic: "Участие в развитието на училището",
+        eventDate: "13 август 2026 г.",
+        time: "от 10:30 до 16:30 ч.",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Съвместно развитие на училището с ученици, родители и учители",
+        salutation: "Уважаеми родители, скъпи ученици,",
+        paragraphs: [
+          "радваме се да Ви поканим да участвате в едно важно и вълнуващо развитие. Нашето училище иска да бъде ориентирано към бъдещето и живо, а за това се нуждаем от сътрудничеството на ученици, родители и учители.",
+          "От началото на учебната година ни подкрепя екип от Schulen im Aufbruch (SiA). Този екип ни помага да не губим от поглед целта си и заедно да развиваме училището.",
+          "Вашите идеи и опит са много важни за нас. Те ни помагат да развиваме училището и да укрепваме нашата общност. Заедно искаме да предаваме ценности на устойчив начин на живот.",
+          "Представяме си училище, което е повече от място за уроци: място за участие, подкрепа и учене през целия живот. Когато всички споделят своите идеи и опит, създаваме учебна среда, която помага на младите хора отговорно да оформят едно добро бъдеще.",
+          "На 13 август 2026 г. от 10:30 до 16:30 ч. ще се проведе работилницата за развитие. На този ден заедно ще положим основата за осъществяване на нашите идеи. Помогнете ни да оформим бъдещето на нашето училище!",
+          "Очакваме с радост Вашата подкрепа и участие."
+        ],
+        closing: "С уважение",
+        signer: "W. Sammer, директор на училището",
+        note: "Преводите служат за по-добро разбиране. При правно или организационно задължителни въпроси важи немският оригинален текст."
+      },
+      fa: {
+        htmlLang: "fa", dir: "rtl",
+        pageTitle: "نامه مدرسه را به زبان خود بخوانید",
+        intro: "در اینجا می‌توانید نامه فعلی مدرسه Bodenstedt-Wilhelmschule را به زبان‌های مختلف بخوانید. لطفاً زبان خود را انتخاب کنید.",
+        subject: "ما فوراً به همکاری شما نیاز داریم!",
+        date: "۱۰ ژوئن ۲۰۲۶",
+        topic: "مشارکت در روند توسعه مدرسه",
+        eventDate: "۱۳ اوت ۲۰۲۶",
+        time: "از ساعت ۱۰:۳۰ تا ۱۶:۳۰",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "توسعه مشترک مدرسه همراه با دانش‌آموزان، والدین و معلمان",
+        salutation: "والدین گرامی، دانش‌آموزان عزیز،",
+        paragraphs: [
+          "خوشحالیم که شما را به شرکت در یک مسیر مهم و هیجان‌انگیز دعوت می‌کنیم. مدرسه ما می‌خواهد آینده‌نگر و پویا باشد و برای این کار به همکاری دانش‌آموزان، والدین و معلمان نیاز داریم.",
+          "از ابتدای سال تحصیلی، تیمی از Schulen im Aufbruch (SiA) از ما حمایت می‌کند. این تیم به ما کمک می‌کند هدف خود را دنبال کنیم و مدرسه را با هم توسعه دهیم.",
+          "ایده‌ها و تجربه‌های شما برای ما بسیار مهم است. آن‌ها به ما کمک می‌کنند مدرسه را بهتر کنیم و جامعه مدرسه را تقویت کنیم. ما می‌خواهیم ارزش‌های یک زندگی پایدار را با هم منتقل کنیم.",
+          "ما مدرسه‌ای را تصور می‌کنیم که فقط محل درس نیست؛ بلکه مکانی برای مشارکت، حمایت و یادگیری مادام‌العمر است. وقتی همه ایده‌ها و تجربه‌های خود را وارد کنند، محیطی آموزشی ایجاد می‌کنیم که جوانان را برای ساختن آینده‌ای بهتر و مسئولانه آماده می‌کند.",
+          "در تاریخ ۱۳ اوت ۲۰۲۶ از ساعت ۱۰:۳۰ تا ۱۶:۳۰ کارگاه توسعه برگزار می‌شود. در این روز، پایه اجرای ایده‌های خود را با هم می‌گذاریم. آینده مدرسه ما را با ما شکل دهید!",
+          "از حمایت و حضور شما خوشحال خواهیم شد."
+        ],
+        closing: "با احترام",
+        signer: "W. Sammer، مدیر مدرسه",
+        note: "ترجمه‌ها برای فهم بهتر ارائه شده‌اند. در مسائل حقوقی یا سازمانی الزام‌آور، متن اصلی آلمانی معتبر است."
+      },
+      sq: {
+        htmlLang: "sq", dir: "ltr",
+        pageTitle: "Lexoni letrën e shkollës në gjuhën tuaj",
+        intro: "Këtu mund të lexoni letrën aktuale të Bodenstedt-Wilhelmschule në gjuhë të ndryshme. Ju lutemi zgjidhni gjuhën tuaj.",
+        subject: "Kemi urgjentisht nevojë për mbështetjen tuaj!",
+        date: "10 qershor 2026",
+        topic: "Pjesëmarrja në zhvillimin e shkollës",
+        eventDate: "13 gusht 2026",
+        time: "nga ora 10:30 deri në 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Zhvillimi i përbashkët i shkollës me nxënësit, prindërit dhe mësuesit",
+        salutation: "Të nderuar prindër, të dashura nxënëse dhe të dashur nxënës,",
+        paragraphs: [
+          "jemi të lumtur t’ju ftojmë të merrni pjesë në një proces të rëndësishëm dhe emocionues. Shkolla jonë dëshiron të jetë e orientuar drejt së ardhmes dhe e gjallë. Për këtë kemi nevojë për bashkëpunimin e nxënësve, prindërve dhe mësuesve.",
+          "Që nga fillimi i vitit shkollor na mbështet një ekip nga Schulen im Aufbruch (SiA). Ky ekip na ndihmon të mbajmë në vëmendje qëllimin tonë dhe ta zhvillojmë shkollën së bashku.",
+          "Idetë dhe përvojat tuaja janë shumë të rëndësishme për ne. Ato na ndihmojnë ta zhvillojmë shkollën dhe ta forcojmë komunitetin tonë. Së bashku duam të përcjellim vlera për një mënyrë jetese të qëndrueshme.",
+          "Ne e imagjinojmë shkollën si më shumë sesa vetëm mësim: një vend pjesëmarrjeje, mbështetjeje dhe të nxëni gjatë gjithë jetës. Kur të gjithë sjellin idetë dhe përvojat e tyre, krijojmë një mjedis mësimor që i ndihmon të rinjtë të formësojnë me përgjegjësi një të ardhme të mirë.",
+          "Më 13 gusht 2026, nga ora 10:30 deri në 16:30, do të zhvillohet punëtoria e zhvillimit. Në këtë ditë do të vendosim së bashku bazën për realizimin e ideve tona. Ndihmoni në formësimin e së ardhmes së shkollës sonë!",
+          "Presim me kënaqësi mbështetjen dhe pjesëmarrjen tuaj."
+        ],
+        closing: "Me respekt",
+        signer: "W. Sammer, drejtor i shkollës",
+        note: ""
+      },
+      bs: {
+        htmlLang: "bs", dir: "ltr",
+        pageTitle: "Pročitajte školsko pismo na svom jeziku",
+        intro: "Ovdje možete pročitati aktuelno pismo Bodenstedt-Wilhelmschule na različitim jezicima. Molimo odaberite svoj jezik.",
+        subject: "Hitno nam je potrebna vaša podrška!",
+        date: "10. juni 2026.",
+        topic: "Učešće u razvoju škole",
+        eventDate: "13. august 2026.",
+        time: "od 10:30 do 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Zajednički razvoj škole sa učenicima, roditeljima i nastavnicima",
+        salutation: "Poštovani roditelji, drage učenice i dragi učenici,",
+        paragraphs: [
+          "radujemo se što vas možemo pozvati da učestvujete u jednom važnom i uzbudljivom procesu. Naša škola želi biti usmjerena ka budućnosti i živahna. Za to nam je potrebna saradnja učenika, roditelja i nastavnika.",
+          "Od početka školske godine podržava nas tim iz Schulen im Aufbruch (SiA). Taj tim nam pomaže da ne izgubimo iz vida svoj cilj i da zajedno razvijamo našu školu.",
+          "Vaše ideje i iskustva su nam veoma važni. Oni nam pomažu da dalje razvijamo školu i jačamo našu zajednicu. Zajedno želimo prenositi vrijednosti održivog načina života.",
+          "Zamišljamo školu koja je više od same nastave: mjesto učešća, podrške i cjeloživotnog učenja. Kada svi donesu svoje ideje i iskustva, stvaramo okruženje za učenje koje mladim ljudima pomaže da odgovorno oblikuju dobru budućnost.",
+          "Dana 13. augusta 2026. od 10:30 do 16:30 održat će se razvojna radionica. Tog dana ćemo zajedno postaviti temelj za ostvarenje naših ideja. Pomozite nam da oblikujemo budućnost naše škole!",
+          "Radujemo se vašoj podršci i učešću."
+        ],
+        closing: "Srdačan pozdrav",
+        signer: "W. Sammer, direktor škole",
+        note: ""
+      },
+      prs: {
+        htmlLang: "prs", dir: "rtl",
+        pageTitle: "نامه مکتب را به زبان خود بخوانید",
+        intro: "در اینجا می‌توانید نامه فعلی مکتب Bodenstedt-Wilhelmschule را به زبان‌های گوناگون بخوانید. لطفاً زبان خود را انتخاب کنید.",
+        subject: "ما به همکاری فوری شما نیاز داریم!",
+        date: "۱۰ جون ۲۰۲۶",
+        topic: "اشتراک در روند پیشرفت مکتب",
+        eventDate: "۱۳ آگست ۲۰۲۶",
+        time: "از ساعت ۱۰:۳۰ تا ۱۶:۳۰",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "پیشرفت مشترک مکتب همراه با شاگردان، والدین و معلمان",
+        salutation: "والدین گرامی، شاگردان عزیز،",
+        paragraphs: [
+          "ما خوشحال هستیم که شما را دعوت می‌کنیم در یک روند مهم و هیجان‌انگیز با ما همراه شوید. مکتب ما می‌خواهد آینده‌نگر و زنده باشد. برای این کار به همکاری شاگردان، والدین و معلمان نیاز داریم.",
+          "از آغاز سال تعلیمی، یک تیم از Schulen im Aufbruch (SiA) از ما پشتیبانی می‌کند. این تیم به ما کمک می‌کند هدف خود را در نظر داشته باشیم و مکتب را با هم پیشرفت دهیم.",
+          "نظریات و تجربه‌های شما برای ما بسیار مهم است. آن‌ها به ما کمک می‌کنند مکتب را بهتر بسازیم و جامعه مکتب را تقویت کنیم. ما می‌خواهیم ارزش‌های یک زندگی پایدار را با هم انتقال دهیم.",
+          "ما مکتبی را تصور می‌کنیم که بیشتر از یک جای درس باشد: جایی برای اشتراک، حمایت و آموزش در تمام زندگی. وقتی همه نظریات و تجربه‌های خود را شریک سازند، محیط آموزشی‌ای ایجاد می‌کنیم که جوانان را برای ساختن آینده‌ای بهتر و مسئولانه آماده می‌کند.",
+          "به تاریخ ۱۳ آگست ۲۰۲۶ از ساعت ۱۰:۳۰ تا ۱۶:۳۰ ورکشاپ پیشرفت برگزار می‌شود. در این روز، ما با هم بنیاد عملی‌سازی نظریات خود را می‌گذاریم. آینده مکتب ما را با ما شکل دهید!",
+          "ما از پشتیبانی و اشتراک شما خوشحال می‌شویم."
+        ],
+        closing: "با احترام",
+        signer: "W. Sammer، مدیر مکتب",
+        note: ""
+      },
+      mk: {
+        htmlLang: "mk", dir: "ltr",
+        pageTitle: "Прочитајте го училишното писмо на вашиот јазик",
+        intro: "Тука можете да го прочитате актуелното писмо од Bodenstedt-Wilhelmschule на различни јазици. Ве молиме изберете јазик.",
+        subject: "Итно ни е потребна вашата поддршка!",
+        date: "10 јуни 2026",
+        topic: "Учество во развојот на училиштето",
+        eventDate: "13 август 2026",
+        time: "од 10:30 до 16:30 часот",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Заеднички развој на училиштето со учениците, родителите и наставниците",
+        salutation: "Почитувани родители, драги ученички и ученици,",
+        paragraphs: [
+          "со задоволство ве покануваме да учествувате во еден важен и возбудлив процес. Нашето училиште сака да биде насочено кон иднината и живо. За тоа ни е потребна соработка од учениците, родителите и наставниците.",
+          "Од почетокот на учебната година нè поддржува тим од Schulen im Aufbruch (SiA). Овој тим ни помага да ја задржиме нашата цел пред очи и заеднички да го развиваме училиштето.",
+          "Вашите идеи и искуства се многу важни за нас. Тие ни помагаат да го развиваме училиштето и да ја зајакнеме нашата заедница. Заедно сакаме да пренесуваме вредности на одржлив начин на живот.",
+          "Ние замислуваме училиште што е повеќе од само настава: место на учество, поддршка и доживотно учење. Кога сите ги внесуваат своите идеи и искуства, создаваме средина за учење што им помага на младите одговорно да обликуваат добра иднина.",
+          "На 13 август 2026 година, од 10:30 до 16:30 часот, ќе се одржи развојна работилница. На тој ден заедно ќе ја поставиме основата за остварување на нашите идеи. Помогнете ни да ја обликуваме иднината на нашето училиште!",
+          "Се радуваме на вашата поддршка и учество."
+        ],
+        closing: "Со почит",
+        signer: "W. Sammer, директор на училиштето",
+        note: ""
+      },
+      rom: {
+        htmlLang: "rom", dir: "ltr",
+        pageTitle: "Drabaren e shkolaqi lil ande tumari čhib",
+        intro: "Akate šaj te drabaren o aktualno lil katar i Bodenstedt-Wilhelmschule ande but čhiba. Mangas tumen, alosaren tumari čhib.",
+        subject: "Amen si but sigeder trubul tumari pomošć!",
+        date: "10. junij 2026",
+        topic: "Khetano buti pe razvijipe e školako",
+        eventDate: "13. avgust 2026",
+        time: "katar 10:30 dži 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Khetano razvijipe e školako e sikljoncenca, dadencar thaj dejencar, thaj učiteljencar",
+        salutation: "Poštovani dada thaj deja, drage sikljonke thaj sikljonci,",
+        paragraphs: [
+          "amen raduisaras amen kaj šaj te akharen tumen te len than ande jekh važna thaj interesantna buti. Amari škola kamel te avel spremno vaš o angluno vaxt thaj dživi. Vaš adava trubul amen i khetani buti e sikljoncengi, e dadengi/dejengi thaj e učiteljengi.",
+          "Katar o starto e školake beršesko pomožinel amen jekh tim katar Schulen im Aufbruch (SiA). Akava tim pomožinel amen te dikhas amaro cilj thaj te razvijis amari škola khetanes.",
+          "Tumare ideje thaj tumare iskustva si but važna vaš amen. Von pomožinen amen te razvijis i škola thaj te zuraras amari zajednica. Khetanes kamas te sikavas vrednosti vaš jekh odgovorno thaj održivo džuvdipe.",
+          "Amen mislivas pe škola savi si majbut sar samo časovi: than vaš učestvovanje, podrška thaj sikljovipe kroz celo džuvdipe. Kana sa den peske ideje thaj iskustva, keras jekh sikljovibnasko than savo pomožinel e ternenge te keren jekh šukar anglalutnipe odgovorno.",
+          "Ko 13. avgust 2026, katar 10:30 dži 16:30, avela radionica vaš o razvijipe. Kodo dives keras khetanes o temelji vaš realizacija amare idejengi. Pomožinen amen te keras e školaki anglalutnipe!",
+          "Raduisaras amen pe tumari podrška thaj učestvovanje."
+        ],
+        closing: "Bahtale sastipe",
+        signer: "W. Sammer, direktori e školako",
+        note: ""
+      },
+      sr: {
+        htmlLang: "sr", dir: "ltr",
+        pageTitle: "Прочитајте школско писмо на свом језику",
+        intro: "Овде можете прочитати актуелно писмо Bodenstedt-Wilhelmschule на различитим језицима. Молимо вас да изаберете језик.",
+        subject: "Хитно нам је потребна ваша подршка!",
+        date: "10. јун 2026.",
+        topic: "Учешће у развоју школе",
+        eventDate: "13. август 2026.",
+        time: "од 10:30 до 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Заједнички развој школе са ученицима, родитељима и наставницима",
+        salutation: "Поштовани родитељи, драге ученице и драги ученици,",
+        paragraphs: [
+          "радујемо се што можемо да вас позовемо да учествујете у једном важном и узбудљивом процесу. Наша школа жели да буде усмерена ка будућности и жива. За то нам је потребна сарадња ученика, родитеља и наставника.",
+          "Од почетка школске године подржава нас тим из Schulen im Aufbruch (SiA). Тај тим нам помаже да не изгубимо из вида наш циљ и да заједно развијамо школу.",
+          "Ваше идеје и искуства су нам веома важни. Они нам помажу да развијамо школу и јачамо нашу заједницу. Заједно желимо да преносимо вредности одрживог начина живота.",
+          "Замишљамо школу која је више од саме наставе: место учешћа, подршке и целоживотног учења. Када сви унесу своје идеје и искуства, стварамо окружење за учење које младима помаже да одговорно обликују добру будућност.",
+          "Дана 13. августа 2026. од 10:30 до 16:30 одржаће се развојна радионица. Тог дана ћемо заједно поставити темељ за остварење наших идеја. Помозите нам да обликујемо будућност наше школе!",
+          "Радујемо се вашој подршци и учешћу."
+        ],
+        closing: "Срдачан поздрав",
+        signer: "W. Sammer, директор школе",
+        note: ""
+      },
+      ku: {
+        htmlLang: "ku", dir: "ltr",
+        pageTitle: "Nameya dibistanê bi zimanê xwe bixwînin",
+        intro: "Li vir hûn dikarin nameya heyî ya Bodenstedt-Wilhelmschule bi çend zimanan bixwînin. Ji kerema xwe zimanek hilbijêrin.",
+        subject: "Em bi lez hewcedarê piştgiriya we ne!",
+        date: "10 Hezîran 2026",
+        topic: "Beşdarbûn di pêşxistina dibistanê de",
+        eventDate: "13 Tebax 2026",
+        time: "10:30 heta 16:30",
+        place: "Bodenstedt-Wilhelmschule Peine",
+        goal: "Pêşxistina hevpar a dibistanê bi şagirtan, dêûbavan û mamosteyan re",
+        salutation: "Dêûbavên hêja, şagirtên hêja,",
+        paragraphs: [
+          "em kêfxweş in ku we vexwînin ku hûn bi me re beşdarî rêwîtiyek girîng bibin. Dibistana me dixwaze ji bo pêşerojê amade û zindî be. Ji bo vê yekê em hewcedarê hevkariya şagirtan, dêûbavan û mamosteyan in.",
+          "Ji destpêka sala xwendinê ve tîmek ji Schulen im Aufbruch (SiA) piştgirî dide me. Ev tîm alîkariya me dike ku armanca xwe nebînin û dibistanê bi hev re pêş bixin.",
+          "Raman û ezmûnên we ji bo me pir girîng in. Ew alîkariya me dikin ku dibistanê pêş bixin û civaka me ya dibistanê xurt bikin. Em dixwazin nirxên jiyaneke domdar bi hev re ragihînin.",
+          "Em dibistanek wisa dibînin ku tenê cihê dersan nîne: cihê beşdarbûnê, piştgiriyê û fêrbûna heta dawiyê. Gava her kes raman û ezmûnên xwe tîne, em hawîrdorek fêrbûnê ava dikin ku ciwanan ji bo pêşerojek baş û bi berpirsiyarî amade dike.",
+          "Di 13ê Tebaxa 2026an de ji saet 10:30 heta 16:30 atolyeya pêşxistinê dê were lidarxistin. Di vê rojê de em bingehê pêkanîna ramanên xwe bi hev re datînin. Pêşeroja dibistana me bi me re ava bikin!",
+          "Em li hêviya piştgirî û beşdarbûna we ne."
+        ],
+        closing: "Bi rêz",
+        signer: "W. Sammer, rêveberê dibistanê",
+        note: "Werger ji bo têgihiştina baştir hatine amadekirin. Di pirsgirêkên qanûnî an rêxistinî de, nivîsa orîjînal a almanî derbasdar e."
+      }
+    };
+
+    const keys = {
+      pageTitle: document.getElementById("page-title"),
+      intro: document.getElementById("intro"),
+      infoDate: document.getElementById("infoDate"),
+      infoTopic: document.getElementById("infoTopic"),
+      infoEventDate: document.getElementById("infoEventDate"),
+      infoTime: document.getElementById("infoTime"),
+      infoPlace: document.getElementById("infoPlace"),
+      infoGoal: document.getElementById("infoGoal"),
+      letterDate: document.getElementById("letterDate"),
+      subject: document.getElementById("letter-subject"),
+      salutation: document.getElementById("salutation"),
+      letterText: document.getElementById("letterText"),
+      closing: document.getElementById("closing"),
+      signer: document.getElementById("signer"),
+      letter: document.getElementById("letter")
+    };
+
+    function renderLanguage(code) {
+      const t = translations[code] || translations.de;
+
+      document.documentElement.lang = t.htmlLang;
+      document.documentElement.dir = t.dir;
+      document.title = t.pageTitle + " | Bodenstedt-Wilhelmschule";
+
+      keys.pageTitle.textContent = t.pageTitle;
+      keys.intro.textContent = t.intro;
+      keys.infoDate.textContent = t.date;
+      keys.infoTopic.textContent = t.topic;
+      keys.infoEventDate.textContent = t.eventDate;
+      keys.infoTime.textContent = t.time;
+      keys.infoPlace.textContent = t.place;
+      keys.infoGoal.textContent = t.goal;
+      keys.letterDate.textContent = "Peine, " + t.date;
+      keys.subject.textContent = t.subject;
+      keys.salutation.textContent = t.salutation;
+      keys.closing.textContent = t.closing;
+      keys.signer.textContent = t.signer;
+      keys.letter.setAttribute("dir", t.dir);
+
+      keys.letterText.innerHTML = "";
+      t.paragraphs.forEach(paragraph => {
+        const p = document.createElement("p");
+        p.textContent = paragraph;
+        keys.letterText.appendChild(p);
+      });
+
+      document.querySelectorAll(".language-button").forEach(button => {
+        const isActive = button.dataset.lang === code;
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      localStorage.setItem("preferredLanguage", code);
+    }
+
+    document.querySelectorAll(".language-button").forEach(button => {
+      button.addEventListener("click", () => {
+        window.speechSynthesis.cancel();
+        renderLanguage(button.dataset.lang);
+        document.getElementById("letter").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const languageSearch = document.getElementById("languageSearch");
+    languageSearch.addEventListener("input", () => {
+      const query = languageSearch.value.trim().toLowerCase();
+      document.querySelectorAll(".language-button").forEach(button => {
+        const text = button.innerText.toLowerCase();
+        button.hidden = query.length > 0 && !text.includes(query);
+      });
+    });
+
+    document.getElementById("readButton").addEventListener("click", () => {
+      if (!("speechSynthesis" in window)) {
+        alert("Die Vorlesefunktion wird von diesem Browser nicht unterstützt.");
+        return;
+      }
+
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        return;
+      }
+
+      const text = document.getElementById("letter").innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = document.documentElement.lang;
+      window.speechSynthesis.speak(utterance);
+    });
+
+    const savedLanguage = localStorage.getItem("preferredLanguage") || "de";
+    renderLanguage(savedLanguage);
+  </script>
+
+</body>
+</html>
