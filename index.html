@@ -585,12 +585,12 @@
 
     <section class="card letter" id="letter" aria-labelledby="letter-subject">
       <p class="letter-meta" id="letterDate">Peine, 10. Juni 2026</p>
-      <h2 id="letter-subject">Wir brauchen dringend Ihre Mitarbeit!</h2>
-      <p class="salutation" id="salutation">Liebe Eltern, liebe Schülerinnen und Schüler,</p>
+      <h2 id="letter-subject">Wir brauchen dringend Eure Mitarbeit!</h2>
+      <p class="salutation" id="salutation">Liebe Schülerinnen und Schüler,</p>
       <div id="letterText"></div>
       <p class="signature">
         <span id="closing">Herzliche Grüße</span><br>
-        <strong id="signer">W. Sammer, Schulleiter</strong>
+        <strong id="signer">W. Sammer<br>(Schulleiter)</strong>
       </p>
     </section>
 
@@ -615,26 +615,28 @@
         htmlLang: "de", dir: "ltr",
         pageTitle: "Elternbrief in Ihrer Sprache lesen",
         intro: "Hier können Sie den aktuellen Elternbrief der Bodenstedt-Wilhelmschule in verschiedenen Sprachen lesen. Bitte wählen Sie Ihre Sprache aus.",
-        subject: "Wir brauchen dringend Ihre Mitarbeit!",
+        subject: "Wir brauchen dringend Eure Mitarbeit!",
         date: "10. Juni 2026",
         topic: "Mitarbeit am Schulentwicklungsprozess",
         eventDate: "13. August 2026",
         time: "10:30 bis 16:30 Uhr",
         place: "Bodenstedt-Wilhelmschule Peine",
         goal: "Gemeinsame Weiterentwicklung der Schule mit Schülerinnen, Schülern, Eltern und Lehrkräften",
-        salutation: "Liebe Eltern, liebe Schülerinnen und Schüler,",
+        salutation: "Liebe Schülerinnen und Schüler,",
         paragraphs: [
-          "wir freuen uns, euch und Sie auf eine spannende Reise mitzunehmen. Unsere Schule möchte zukunftsorientiert und lebendig sein – und dafür brauchen wir die Mitarbeit von Schülerinnen und Schülern, Eltern und Lehrkräften.",
-          "Seit Anfang des Schuljahres unterstützt uns ein Team von Schulen im Aufbruch (SiA). Dieses Team hilft uns dabei, unser Ziel im Blick zu behalten und unsere Schule gemeinsam weiterzuentwickeln.",
-          "Eure und Ihre Ideen und Erfahrungen sind uns sehr wichtig. Sie helfen uns, die Schule weiterzuentwickeln und unsere Gemeinschaft zu stärken. Gemeinsam möchten wir Werte einer nachhaltigen Lebensweise vermitteln.",
-          "Wir stellen uns eine Schule vor, die mehr ist als Unterricht: ein Ort der Mitbestimmung, Unterstützung und des lebenslangen Lernens. Wenn alle ihre Ideen und Erfahrungen einbringen, schaffen wir eine Lernumgebung, die junge Menschen zu verantwortungsbewussten Gestalterinnen und Gestaltern einer lebenswerten Zukunft befähigt.",
-          "Am 13. August 2026 findet von 10:30 bis 16:30 Uhr der Aufbruch-Workshop statt. An diesem Tag legen wir gemeinsam den Grundstein für die Verwirklichung unserer Ideen. Gestalten Sie mit uns die Zukunft unserer Schule!",
-          "Wir freuen uns auf Ihre Unterstützung und Teilnahme."
+          "wir freuen uns, euch auf eine spannende Reise mitzunehmen! Unsere Schule möchte zukunftsorientiert und lebendig sein – und dafür brauchen wir euch! Gemeinsam mit Lehrern und Eltern gehen wir den Weg zu nachhaltiger Bildung.",
+          "Seit Anfang des Schuljahres unterstützt uns ein Team von Schulen im Aufbruch (SiA). Sie helfen uns, unser Ziel im Blick zu behalten und unsere Schule für euch noch erfolgreicher zu machen.",
+          "Eure Ideen und Erfahrungen sind uns super wichtig! Ihr helft uns, die Schule weiterzuentwickeln und unsere Gemeinschaft zu stärken. So vermitteln wir gemeinsam Werte einer nachhaltigen Lebensweise.",
+          "Stellt euch eine Schule vor, die mehr ist als nur Unterricht: einen Ort der Mitbestimmung, Unterstützung und des lebenslangen Lernens. Wenn wir alle unsere Ideen und Erfahrungen einbringen, schaffen wir eine Lernumgebung, die euch zu verantwortungsbewussten Gestaltern einer lebenswerten Zukunft befähigt.",
+          "Lasst uns gemeinsam unsere Schule zu einem Ort machen, der eure Erfolge und die Unterstützung eurer Eltern widerspiegelt.",
+          "Am 13. August 2026 findet von 10:30 bis 16:30 Uhr der Aufbruch Workshop statt. An diesem Tag legen wir gemeinsam den Grundstein für die Verwirklichung unserer und eurer Ideen. Gestaltet mit uns die Zukunft!",
+          "Wir freuen uns auf euch!"
         ],
         closing: "Herzliche Grüße",
-        signer: "W. Sammer, Schulleiter",
-        note: "Die Übersetzungen dienen der besseren Verständlichkeit. Bei rechtlich oder organisatorisch verbindlichen Fragen gilt der deutsche Originaltext."
+        signer: "W. Sammer\n(Schulleiter)",
+        note: ""
       },
+
       en: {
         htmlLang: "en", dir: "ltr",
         pageTitle: "Read the school letter in your language",
@@ -1118,7 +1120,7 @@
       keys.subject.textContent = t.subject;
       keys.salutation.textContent = t.salutation;
       keys.closing.textContent = t.closing;
-      keys.signer.textContent = t.signer;
+      keys.signer.innerHTML = String(t.signer).replace(/\\n/g, "<br>");
       keys.letter.setAttribute("dir", t.dir);
       const ui = uiText[code] || uiText.default;
       const selectedLanguage = document.getElementById("selectedLanguage");
