@@ -156,7 +156,7 @@
     }
 
     h2 {
-      font-size: clamp(1.55rem, 6vw, 2.35rem);
+      font-size: calc(clamp(1.55rem, 6vw, 2.35rem) * var(--user-font-scale));
       margin: 0 0 8px;
     }
 
@@ -353,7 +353,7 @@
     }
 
     .letter {
-      font-size: clamp(1.04rem, 2.8vw, 1.16rem);
+      font-size: calc(18px * var(--user-font-scale));
       border-top: 6px solid var(--blue);
     }
 
@@ -707,7 +707,7 @@
       }
 
       .letter {
-        font-size: 1.02rem;
+        font-size: calc(18px * var(--user-font-scale));
       }
     }
 
@@ -729,6 +729,18 @@
 
     body {
       font-size: calc(18px * var(--user-font-scale));
+    }
+
+    .letter,
+    .letter-meta,
+    .letter h2,
+    .salutation,
+    #letterText,
+    #letterText p,
+    .signature,
+    .info-item,
+    .intro {
+      font-size: inherit;
     }
 
     .accessibility-tools {
