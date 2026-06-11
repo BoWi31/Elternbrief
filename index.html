@@ -493,31 +493,110 @@
     }
 
     @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm 11mm 10mm 11mm;
+      }
+
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+
+      html,
       body {
-        background: white;
-        font-size: 12pt;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 9.4pt !important;
+        line-height: 1.28 !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
 
       .site-header,
+      .hero,
       .language-panel,
+      .button-row,
+      .accessibility-tools,
+      .speech-hint,
+      .selected-language,
+      .change-language-fab,
       .site-footer,
-      .skip-link {
-        display: none;
+      .skip-link,
+      .card[aria-label="Wichtige Informationen"],
+      .card[aria-labelledby="info-title"] {
+        display: none !important;
       }
 
       main {
-        padding: 0;
-        width: 100%;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
 
-      .card {
-        border: 0;
-        box-shadow: none;
-        padding: 0;
+      .card,
+      .letter {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
       }
 
-      .info-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .letter-meta {
+        font-size: 9.2pt !important;
+        margin: 0 0 8pt 0 !important;
+        color: #000000 !important;
+        font-weight: 400 !important;
+      }
+
+      .letter h2,
+      #letter-subject {
+        color: #000000 !important;
+        font-size: 13pt !important;
+        line-height: 1.18 !important;
+        margin: 0 0 12pt 0 !important;
+        page-break-after: avoid !important;
+      }
+
+      .salutation {
+        font-size: 9.4pt !important;
+        margin: 0 0 8pt 0 !important;
+        font-weight: 700 !important;
+      }
+
+      #letterText p {
+        margin: 0 0 7pt 0 !important;
+        orphans: 2;
+        widows: 2;
+      }
+
+      .signature {
+        margin-top: 10pt !important;
+        page-break-inside: avoid !important;
+      }
+
+      .signature,
+      .signature span,
+      .signature strong {
+        font-size: 9.4pt !important;
+        color: #000000 !important;
+      }
+
+      a {
+        color: #000000 !important;
+        text-decoration: none !important;
+      }
+
+      /* Sicherheitsnetz: Falls ein Browser mehr Platz braucht, etwas weiter komprimieren */
+      @supports (font-size: 1cqw) {
+        body {
+          font-size: min(9.4pt, 2.4cqw) !important;
+        }
       }
     }
   
